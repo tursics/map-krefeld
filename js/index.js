@@ -64,7 +64,9 @@ function getDataSources() {
 		{
 			title: 'Schulen in der Stadt Krefeld',
 			layer: 'schools',
-			portalURI: 'https://www.offenesdatenportal.de/dataset/https-www-krefeld-de-www-schulen-nsf-apijson-xsp-view-list-az-compact-false'
+			portalURI: 'https://www.offenesdatenportal.de/dataset/https-www-krefeld-de-www-schulen-nsf-apijson-xsp-view-list-az-compact-false',
+			dataURI: 'site=https://www.krefeld.de/www/schulen.nsf/apijson.xsp/view-list-az',
+			betterURI: 'moerser.tursics.de?site=https://www.krefeld.de/www/schulen.nsf/apijson.xsp/view-list-az'
 		},
 		{
 			title: 'Hotels und Restaurants in Krefeld',
