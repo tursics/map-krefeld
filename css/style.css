@@ -9,3 +9,47 @@ body {
 	top: 0;
 	width: 100%;
 }
+
+#menu {
+	background: #fff;
+	border-radius: 4px;
+	box-shadow: 0 0 0 2px rgba(0, 0, 0, .1);
+	font-family: 'Open Sans', sans-serif;
+	left: 10px;
+	position: absolute;
+	top: 10px;
+	z-index: 1;
+	width: 12em;
+}
+
+#menu a {
+	border: none;
+	border-bottom: 1px solid #ddd;
+	color: #444;
+	display: block;
+	font-size: 13px;
+	line-height: 29px;
+	margin: 0;
+	overflow: hidden;
+	padding: 0 10px;
+	text-align: left;
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+#menu a:last-child {
+	border-bottom: none;
+}
+
+#menu a:hover {
+	background-color: rgba(0, 0, 0, .05);
+}
+
+#menu a.active {
+	background-color: #3887be;
+	color: #ffffff;
+}
+
+#menu a.active:hover {
+	background: #3074a4;
+}
