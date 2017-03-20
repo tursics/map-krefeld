@@ -9,9 +9,14 @@ mapboxgl.accessToken = 'pk.eyJ1IjoidHVyc2ljcyIsImEiOiJjajBoN3hzZGwwMDJsMnF0YW96Y
 
 var map = new mapboxgl.Map({
 	container: 'map',
-	style: 'mapbox://styles/mapbox/streets-v9',
+	style: 'mapbox://styles/mapbox/streets-v9', //streets-v9 outdoors-v9 light-v9 dark-v9 satellite-v9 satellite-streets-v9
 	center: [6.643, 51.451],
-	zoom: 14
+	minZoom: 10,
+	maxZoom: 19,
+	zoom: 16,
+	pitch: 60,
+	hash: true
+//	maxBounds: If set, the map will be constrained to the given bounds
 });
 
 //-----------------------------------------------------------------------
@@ -20,6 +25,22 @@ map.on('load', function () {
 	'use strict';
 
 	map.addControl(new mapboxgl.NavigationControl());
+	map.addControl(new mapboxgl.GeolocateControl({
+		positionOptions: {
+			enableHighAccuracy: true
+		}
+	}));
+	map.addControl(new mapboxgl.ScaleControl({
+		maxWidth: 200,
+		unit: 'metric'
+	}));
+	map.addControl(new mapboxgl.FullscreenControl());
+
+	map.addSource('some id', {
+		type: 'geojson',
+//		data: 'http://moerser.tursics.de/?site=https://www.moers.de/www/verzeichnis-04.nsf/apijson.xsp/view-list-category1',
+		data: /*{
+	});
 
 	map.addLayer({
 		'id': 'points',
@@ -30,7 +51,7 @@ map.on('load', function () {
 			"data":
 //************
 {"name":"Strassenbeleuchtung","type":"FeatureCollection"
-,"features":[
+,"features":[*/
 {"type":"Feature","geometry":{"type":"Point","coordinates":[6.59229984038547,51.4002522215121]},"properties":{"LANGNAME":"Beleuchtung","ART":"Straßenbeleuchtung"}}
 ,{"type":"Feature","geometry":{"type":"Point","coordinates":[6.5934564051263,51.4002249049608]},"properties":{"LANGNAME":"Beleuchtung","ART":"Straßenbeleuchtung"}}
 ,{"type":"Feature","geometry":{"type":"Point","coordinates":[6.59113307333041,51.4002739206536]},"properties":{"LANGNAME":"Beleuchtung","ART":"Straßenbeleuchtung"}}
@@ -8232,18 +8253,18 @@ map.on('load', function () {
 ,{"type":"Feature","geometry":{"type":"Point","coordinates":[6.64381873241654,51.448143811628]},"properties":{"LANGNAME":"Beleuchtung","ART":"Straßenbeleuchtung"}}
 ]}
 //************
-		},
+/*		},
 		"layout": {
 			"icon-image": "ice-cream-15",
 			"text-field": "",
 			"text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
 			"text-offset": [0, 0.6],
 			"text-anchor": "top"
-		}
+		}*/
 /*		'layout': {},
 		'paint': {
 		'fill-color': '#088',
 		'fill-opacity': 0.8
 		}*/
-	});
+//	});
 });
