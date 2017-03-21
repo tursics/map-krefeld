@@ -4,6 +4,7 @@
 //-----------------------------------------------------------------------
 
 mapboxgl.accessToken = 'pk.eyJ1IjoidHVyc2ljcyIsImEiOiJjajBoN3hzZGwwMDJsMnF0YW96Y2l3OGk2In0._5BdojVYvNuR6x4fQNYZrA';
+var baseURI = 'https://tursics.github.io/map-krefeld';
 
 //-----------------------------------------------------------------------
 
@@ -25,6 +26,11 @@ function getDataSources() {
 	'use strict';
 
 	var sources = [
+		{
+			title: 'Stadt Krefeld',
+			layer: 'VERWALT_EINH',
+			portalURI: 'https://www.offenesdatenportal.de/dataset/liegenschaftskataster-stadt-krefeld'
+		},
 		{
 			title: 'Liegenschaftskataster Stadt Krefeld',
 			portalURI: 'https://www.offenesdatenportal.de/dataset/liegenschaftskataster-stadt-krefeld'
@@ -165,10 +171,33 @@ function loadGeoJSON(title, url) {
 			'text-offset': [0, 0.6],
 			'text-anchor': 'top'
 		}
-    });
+	});
 	map.setLayoutProperty(title, 'visibility', 'none');
 }
 
+//-----------------------------------------------------------------------
+
+function loadGeoJSONPolygon(title, url) {
+	'use strict';
+
+	map.addSource(title, {
+		type: 'geojson',
+		data: url
+	});
+
+	map.addLayer({
+		id: title,
+		type: 'fill',
+		source: title,
+		visibility: 'none',
+		layout: {},
+		paint: {
+			'fill-color': '#088',
+			'fill-opacity': 0.8
+		}
+	});
+	map.setLayoutProperty(title, 'visibility', 'none');
+}
 
 //-----------------------------------------------------------------------
 
@@ -188,6 +217,7 @@ map.on('load', function () {
 	map.addControl(new mapboxgl.FullscreenControl());
 
 	loadGeoJSON('schools', 'http://moerser.tursics.de/?site=https://www.moers.de/www/verzeichnis-04.nsf/apijson.xsp/view-list-category1');
+	loadGeoJSONPolygon('VERWALT_EINH', baseURI + '/map/ALKIS_ADV_SHAPE_Krefeld_VERWALT_EINH.json');
 	buildMenu();
 
 	// next step:
