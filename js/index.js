@@ -11,8 +11,8 @@ var baseURI = 'https://tursics.github.io/map-krefeld';
 var map = new mapboxgl.Map({
 	container: 'map',
 	style: 'mapbox://styles/mapbox/streets-v9', //streets-v9 outdoors-v9 light-v9 dark-v9 satellite-v9 satellite-streets-v9
-	center: [6.643, 51.451],
-	minZoom: 10,
+	center: [6.559, 51.334],
+	minZoom: 11,
 	maxZoom: 19,
 	zoom: 16,
 	pitch: 60,
@@ -177,6 +177,33 @@ function loadGeoJSON(title, url) {
 
 //-----------------------------------------------------------------------
 
+function loadGeoJSONLine(title, url) {
+	'use strict';
+
+	map.addSource(title, {
+		type: 'geojson',
+		data: url
+	});
+
+	map.addLayer({
+		id: title,
+		type: 'fill',
+		source: title,
+		visibility: 'none',
+		layout: {
+			'line-join': 'round',
+			'line-cap': 'round'
+		},
+		paint: {
+			'line-color': '#888',
+			'line-width': 8
+		}
+	});
+	map.setLayoutProperty(title, 'visibility', 'none');
+}
+
+//-----------------------------------------------------------------------
+
 function loadGeoJSONPolygon(title, url) {
 	'use strict';
 
@@ -192,8 +219,8 @@ function loadGeoJSONPolygon(title, url) {
 		visibility: 'none',
 		layout: {},
 		paint: {
-			'fill-color': '#088',
-			'fill-opacity': 0.8
+			'fill-color': '#f00',
+			'fill-opacity': 0.05
 		}
 	});
 	map.setLayoutProperty(title, 'visibility', 'none');
@@ -216,10 +243,18 @@ map.on('load', function () {
 	}));
 	map.addControl(new mapboxgl.FullscreenControl());
 
+	// http://www.color-hex.com/color/637cb0
+	map.setPaintProperty('water', 'fill-color', '#637cb0');
+	map.setPaintProperty('building', 'fill-color', '#b0637c');
+	map.setPaintProperty('park', 'fill-color', '#7cb063');
+
 	loadGeoJSON('schools', 'http://moerser.tursics.de/?site=https://www.moers.de/www/verzeichnis-04.nsf/apijson.xsp/view-list-category1');
 	loadGeoJSONPolygon('VERWALT_EINH', baseURI + '/map/ALKIS_ADV_SHAPE_Krefeld_VERWALT_EINH.json');
 	buildMenu();
 
 	// next step:
-	// https://www.mapbox.com/mapbox-gl-js/example/toggle-layers/
+	// https://www.mapbox.com/mapbox-gl-js/example/setstyle/
+	// https://github.com/mapbox/mapbox-gl-styles
+	// https://www.krefeld.de/de/vermessung/stadtkarten/
+	// https://www.krefeld.de/de/dienstleistungen/stadtkarte-von-krefeld-im-geoportal-niederrhein/
 });
