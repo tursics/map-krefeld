@@ -19,6 +19,8 @@ Use the script in the ```./build/``` folder to prepare yourself...
 2. Open ZIP file on [mapshaper.org](http://mapshaper.org/)
 3. Select the buildings layer "GEBAEUDEBAUWERK"
 4. Export objects as GeoJSON file
+5. Save file to ```./build/ALKIS_ADV_SHAPE_Krefeld_VERWALT_EINH.json```
+6. Run script ```node reproject.js``` to convert EPSG:25832 (ETRS89 / UTM zone 32N) to WGS 84
 
 ## License
 

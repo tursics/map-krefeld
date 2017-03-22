@@ -1,0 +1,25 @@
+{
+  "name": "map-krefeld",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tursics/map-krefeld.git"
+  },
+  "author": "Thomas Tursics <thomas@tursics.de> (http://tursics.de)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tursics/map-krefeld/issues"
+  },
+  "homepage": "https://github.com/tursics/map-krefeld#readme",
+  "dependencies": {
+    "epsg": "^0.3.0",
+    "proj4": "^2.4.3",
+    "reproject": "^1.1.1",
+    "shapefile": "^0.6.2"
+  }
+}
