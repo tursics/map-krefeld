@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/tursics/map-krefeld#readme",
   "dependencies": {
+    "@turf/turf": "^3.14.1",
     "epsg": "^0.3.0",
     "proj4": "^2.4.3",
     "reproject": "^1.1.1",

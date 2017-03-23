@@ -15,12 +15,25 @@ One, most important, fundamental, problem: All data have postal addresses and no
 
 Use the script in the ```./build/``` folder to prepare yourself...
 
+---
+
 1. Download SHP files from [Liegenschaftskataster Stadt Krefeld](https://www.offenesdatenportal.de/dataset/liegenschaftskataster-stadt-krefeld)
 2. Open ZIP file on [mapshaper.org](http://mapshaper.org/)
-3. Select the buildings layer "GEBAEUDEBAUWERK"
+3. Select the buildings layer "VERWALT_EINH"
 4. Export objects as GeoJSON file
 5. Save file to ```./build/ALKIS_ADV_SHAPE_Krefeld_VERWALT_EINH.json```
 6. Run script ```node reproject.js``` to convert EPSG:25832 (ETRS89 / UTM zone 32N) to WGS 84
+
+---
+
+1. see above
+2. see above
+3. Select the buildings layer "GEBAEUDEBAUWERK"
+4. Export objects as GeoJSON file
+5. Save file to ```./build/ALKIS_ADV_SHAPE_Krefeld_GEBAEUDEBAUWERK.json```
+6. Run script ```node generateaddressbook.js``` to create a geocode basics table
+
+---
 
 ## License
 
