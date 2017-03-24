@@ -25,6 +25,15 @@ String.prototype.hashCode = function () {
 };
 
 //-----------------------------------------------------------------------
+// http://stackoverflow.com/questions/9716468/is-there-any-function-like-isnumeric-in-javascript-to-validate-numbers
+
+function isNumeric(n) {
+	'use strict';
+
+	return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+//-----------------------------------------------------------------------
 
 function downloadFile(filepath, uri, callback) {
 	'use strict';
@@ -123,7 +132,7 @@ function loadAddressBook(callback) {
 				lines = str.split("\n");
 				for (i = 1; i < lines.length; ++i) {
 					line = lines[i].split(';');
-					csv[line[0]] = {lat: parseFloat(line[1]), lng: parseFloat(line[2])};
+					csv[line[0]] = {lat: parseFloat(line[2]), lng: parseFloat(line[3])};
 				}
 
 				addressBook = csv;
@@ -196,7 +205,7 @@ function downloadData(uri, callback) {
 
 	downloadURI(uri, function (filePath) {
 		getJSON(filePath, function (json) {
-			arr = json;
+			arr = json || [];
 			idx = 0;
 
 			processOne();
@@ -206,32 +215,48 @@ function downloadData(uri, callback) {
 
 //-----------------------------------------------------------------------
 
-function street2geo(street) {
+function street2geo(theStreet) {
 	'use strict';
+
+	var street = theStreet.toLowerCase(),
+		ret;
 
 	// Glockenspitz 348/350
 	street = street.split('/')[0];
-	// Alte Krefelder Str. 93
-	street = street.replace('Str.', 'Straße');
 	// Lindenstr. 52
 	street = street.replace('str.', 'straße');
-	// Gladbacher Strasse 277
-	street = street.replace('Strasse', 'Straße');
 	// Tulpenstrasse 11
 	street = street.replace('strasse', 'straße');
-	// Von-Ketteler- Straße 31
-	street = street.replace('- ', '-');
-
-	// Breslauer Str.280
-//	street = street.replace('/\.2/g', '. 2');
 	// Kaiserstr.61
-//	street = street.replace('/\.6/g', '. 6');
+	street = street.replace(new RegExp(' ', 'g'), '');
+	// Schmiedestraße 90-98
+	if ((street.lastIndexOf('-') > -1) && (isNumeric(street.substr(street.lastIndexOf('-') + 1, 1)))) {
+		street = street.substr(0, street.lastIndexOf('-'));
+	}
+	// Von-Ketteler- Straße 31
+	street = street.replace(new RegExp('-', 'g'), '');
+	street = street.replace(new RegExp('\\.', 'g'), '');
+	street = street.replace(/\r?\n|\r/g, '');
 
-	var ret = addressBook[street];
+	ret = addressBook[street];
 	if (typeof ret !== 'undefined') {
 		return ret;
 	}
 
+	// Herrenweg 10/14
+	if (theStreet.split('/').length > 1) {
+		while (isNumeric(street.substr(-1))) {
+			street = street.substr(0, street.length - 1);
+		}
+		street += theStreet.split('/')[1].trim();
+
+		ret = addressBook[street];
+		if (typeof ret !== 'undefined') {
+			return ret;
+		}
+	}
+
+	console.log('Could not geocode: ' + theStreet);
 	return {lat: 0, lng: 0};
 }
 
@@ -253,7 +278,7 @@ function geocode(data, callback) {
 		features.push(
 			turf.feature({
 				type: 'Point',
-				coordinates: [ data[i].lat, data[i].lng]
+				coordinates: [data[i].lng, data[i].lat]
 			},
 				data[i]
 				)
@@ -297,7 +322,7 @@ function start() {
 		}
 
 		geocode(result, function (geoJSON) {
-			saveGeoJSON(geoJSON, 'schools.json', function (filePath) {
+			saveGeoJSON(geoJSON, 'schulen.json', function (filePath) {
 				console.log(filePath);
 			});
 		});

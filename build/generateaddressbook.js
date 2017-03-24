@@ -37,7 +37,7 @@ function saveCSV(addressBook, filename, callback) {
 	var filePath,
 		fs = require('fs'),
 		arr,
-		str = "street;lat;lng\n";
+		str = "id;street;lat;lng\n";
 
 	filePath = '../map';
 	if (!fs.existsSync(filePath)) {
@@ -46,7 +46,11 @@ function saveCSV(addressBook, filename, callback) {
 	filePath += '/' + filename;
 
 	arr = Object.keys(addressBook).map(function (key) {
-		str += key + ';' + addressBook[key] + "\n";
+		var id = key.toLowerCase();
+		id = id.replace(new RegExp(' ', 'g'), '');
+		id = id.replace(new RegExp('-', 'g'), '');
+		id = id.replace(new RegExp('\\.', 'g'), '');
+		str += id + ';' + key + ';' + addressBook[key] + "\n";
 	});
 
 	fs.writeFile(filePath, str, function (err) {
