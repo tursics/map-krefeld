@@ -71,8 +71,7 @@ function getDataSources() {
 			title: 'Schulen in der Stadt Krefeld',
 			layer: 'schools',
 			portalURI: 'https://www.offenesdatenportal.de/dataset/https-www-krefeld-de-www-schulen-nsf-apijson-xsp-view-list-az-compact-false',
-			dataURI: 'site=https://www.krefeld.de/www/schulen.nsf/apijson.xsp/view-list-az',
-			betterURI: 'moerser.tursics.de?site=https://www.krefeld.de/www/schulen.nsf/apijson.xsp/view-list-az'
+			dataURI: 'site=https://www.krefeld.de/www/schulen.nsf/apijson.xsp/view-list-az'
 		},
 		{
 			title: 'Hotels und Restaurants in Krefeld',
@@ -150,7 +149,7 @@ function buildMenu() {
 
 //-----------------------------------------------------------------------
 
-function loadGeoJSON(title, url) {
+function loadGeoJSON(title, url, titleTemplate, icon) {
 	'use strict';
 
 	map.addSource(title, {
@@ -164,9 +163,9 @@ function loadGeoJSON(title, url) {
 		source: title,
 		visibility: 'none',
 		layout: {
-			'icon-image': 'ice-cream-15',
+			'icon-image': icon,
 			'icon-size': 2,
-			'text-field': '{DocName}',
+			'text-field': titleTemplate,
 			'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
 			'text-offset': [0, 0.6],
 			'text-anchor': 'top'
@@ -231,6 +230,10 @@ function loadGeoJSONPolygon(title, url) {
 map.on('load', function () {
 	'use strict';
 
+	if (window.location.href.indexOf('file://') === 0) {
+		baseURI = '.';
+	}
+
 	map.addControl(new mapboxgl.NavigationControl());
 	map.addControl(new mapboxgl.GeolocateControl({
 		positionOptions: {
@@ -248,7 +251,7 @@ map.on('load', function () {
 	map.setPaintProperty('building', 'fill-color', '#b0637c');
 	map.setPaintProperty('park', 'fill-color', '#7cb063');
 
-	loadGeoJSON('schools', 'http://moerser.tursics.de/?site=https://www.moers.de/www/verzeichnis-04.nsf/apijson.xsp/view-list-category1');
+	loadGeoJSON('schools', baseURI + '/map/schulen.json', '{title}', 'school-15');
 	loadGeoJSONPolygon('VERWALT_EINH', baseURI + '/map/ALKIS_ADV_SHAPE_Krefeld_VERWALT_EINH.json');
 	buildMenu();
 
