@@ -68,14 +68,16 @@ function getDataSources() {
 			portalURI: 'https://www.offenesdatenportal.de/dataset/bildungspaket'
 		},
 		{
-			title: 'Schulen in der Stadt Krefeld',
-			layer: 'schools',
-			portalURI: 'https://www.offenesdatenportal.de/dataset/https-www-krefeld-de-www-schulen-nsf-apijson-xsp-view-list-az-compact-false',
-			dataURI: 'site=https://www.krefeld.de/www/schulen.nsf/apijson.xsp/view-list-az'
+			title: 'Schulen',
+			layer: 'schools'
 		},
 		{
-			title: 'Hotels und Restaurants in Krefeld',
-			portalURI: 'https://www.offenesdatenportal.de/dataset/hotels-und-restaurants-in-krefeld'
+			title: 'Hotels',
+			layer: 'hotels'
+		},
+		{
+			title: 'Restaurants',
+			layer: 'restaurants'
 		},
 		{
 			title: 'Veranstaltungskalender der Stadt Krefeld',
@@ -149,7 +151,7 @@ function buildMenu() {
 
 //-----------------------------------------------------------------------
 
-function loadGeoJSON(title, url, titleTemplate, icon) {
+function loadGeoJSON(title, url, titleTemplate, icon, filter) {
 	'use strict';
 
 	map.addSource(title, {
@@ -162,6 +164,7 @@ function loadGeoJSON(title, url, titleTemplate, icon) {
 		type: 'symbol',
 		source: title,
 		visibility: 'none',
+		filter: filter,
 		layout: {
 			'icon-image': icon,
 			'icon-size': 2,
@@ -251,7 +254,10 @@ map.on('load', function () {
 	map.setPaintProperty('building', 'fill-color', '#b0637c');
 	map.setPaintProperty('park', 'fill-color', '#7cb063');
 
-	loadGeoJSON('schools', baseURI + '/map/schulen.json', '{title}', 'school-15');
+	// https://github.com/mapbox/mapbox-gl-styles#standard-icons
+	loadGeoJSON('schools', baseURI + '/map/schulen.json', '{title}', 'school-15', ['!=', 'title', '']);
+	loadGeoJSON('restaurants', baseURI + '/map/hotels.json', '{title}', 'restaurant-15', ['==', 'cat1', 'Gastronomie']);
+	loadGeoJSON('hotels', baseURI + '/map/hotels.json', '{title}', 'lodging-15', ['==', 'cat1', 'Hotel']);
 	loadGeoJSONPolygon('VERWALT_EINH', baseURI + '/map/ALKIS_ADV_SHAPE_Krefeld_VERWALT_EINH.json');
 	buildMenu();
 
