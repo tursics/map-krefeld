@@ -126,6 +126,8 @@ function parseBuildings(features) {
 				address = number[0].substr(0, number[0].lastIndexOf(' '));
 				number[0] = number[0].substr(number[0].lastIndexOf(' '));
 
+				address = address.replace('Str.', 'Straße');
+
 				for (n = 0; n < number.length; ++n) {
 					addressBook[address.trim() + ' ' + number[n].trim()] = lat + ';' + lng;
 				}

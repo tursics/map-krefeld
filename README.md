@@ -35,6 +35,11 @@ Use the script in the ```./build/``` folder to prepare yourself...
 
 ---
 
+Generate other data files
+2. Run script ```node generateschools.js``` to create a schools geojson file
+
+---
+
 ## License
 
 Released under the [MIT License (MIT)](LICENSE.md)
