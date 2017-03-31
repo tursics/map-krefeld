@@ -127,6 +127,7 @@ function parseBuildings(features) {
 				number[0] = number[0].substr(number[0].lastIndexOf(' '));
 
 				address = address.replace('Str.', 'Straße');
+				address = address.replace('Luth.-Kirch', 'Lutherische-Kirch');
 
 				for (n = 0; n < number.length; ++n) {
 					addressBook[address.trim() + ' ' + number[n].trim()] = lat + ';' + lng;

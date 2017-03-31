@@ -45,10 +45,6 @@ function getDataSources() {
 			portalURI: 'https://www.offenesdatenportal.de/dataset/familienkarte-der-stadt-krefeld'
 		},
 		{
-			title: 'Kindertages- und Jugendeinrichtungen in Krefeld',
-			portalURI: 'https://www.offenesdatenportal.de/dataset/kindertageseinrichtungen-und-jugendeinrichtungen'
-		},
-		{
 			title: 'Integrationsangebote der Stadt Krefeld',
 			portalURI: 'https://www.offenesdatenportal.de/dataset/integrationsangebote-der-stadt-krefeld'
 		},
@@ -72,6 +68,11 @@ function getDataSources() {
 			title: 'Schulen',
 			layer: 'schools',
 			icon: 'school'
+		},
+		{
+			title: 'Kindertages- und Jugendeinrichtungen in Krefeld',
+			layer: 'kindergartens',
+			icon: 'kindergarten'
 		},
 		{
 			title: 'Hotels',
@@ -299,12 +300,13 @@ map.on('load', function () {
 	map.addControl(new mapboxgl.FullscreenControl());
 
 	// http://www.color-hex.com/color/637cb0
-	map.setPaintProperty('water', 'fill-color', '#637cb0');
-	map.setPaintProperty('building', 'fill-color', '#b0637c');
-	map.setPaintProperty('park', 'fill-color', '#7cb063');
+	map.setPaintProperty('water', 'fill-color', '#96a7ca');
+	map.setPaintProperty('building', 'fill-color', '#f4eaed');
+	map.setPaintProperty('park', 'fill-color', '#a7ca96');
 
 	// https://github.com/mapbox/mapbox-gl-styles#standard-icons
 	loadGeoJSON('schools', baseURI + '/map/schulen.json', '{title}', 'school-15', ['!=', 'title', '']);
+	loadGeoJSON('kindergartens', baseURI + '/map/kindergartens.json', '{title}', 'playground-15', ['!=', 'title', '']);
 	loadGeoJSON('restaurants', baseURI + '/map/hotels.json', '{title}', 'restaurant-15', ['==', 'restaurant', true]);
 	loadGeoJSON('hotels', baseURI + '/map/hotels.json', '{title}', 'lodging-15', ['==', 'hotel', true]);
 	loadGeoJSONPolygon('VERWALT_EINH', baseURI + '/map/ALKIS_ADV_SHAPE_Krefeld_VERWALT_EINH.json');

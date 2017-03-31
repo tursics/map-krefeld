@@ -115,6 +115,13 @@ body {
 	background-color: #DF9062;
 	border-color: #cc6529;
 }
+#omnibox a.icon.kindergarten:before {
+	background-image: url('https://cdn.rawgit.com/mapbox/mapbox-gl-styles/master/sprites/bright-v9/_svg/playground-15.svg');
+}
+#omnibox a.active.icon.kindergarten:before {
+	background-color: #50c700;
+	border-color: #317a00;
+}
 
 #omnibox input#filter {
 	background: transparent;
