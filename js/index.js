@@ -65,14 +65,14 @@ function getDataSources() {
 			portalURI: 'https://www.offenesdatenportal.de/dataset/bildungspaket'
 		},
 		{
+			title: 'Kindergärten',
+			layer: 'kindergartens',
+			icon: 'kindergarten'
+		},
+		{
 			title: 'Schulen',
 			layer: 'schools',
 			icon: 'school'
-		},
-		{
-			title: 'Kindertages- und Jugendeinrichtungen in Krefeld',
-			layer: 'kindergartens',
-			icon: 'kindergarten'
 		},
 		{
 			title: 'Hotels',
