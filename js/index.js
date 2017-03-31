@@ -107,81 +107,6 @@ function getDataSources() {
 
 //-----------------------------------------------------------------------
 
-function menuClick(event) {
-//	'use strict';
-
-	var layer = this.layerName,
-		visibility;
-
-	event.preventDefault();
-	event.stopPropagation();
-
-	visibility = map.getLayoutProperty(layer, 'visibility');
-
-	if (visibility === 'visible') {
-		map.setLayoutProperty(layer, 'visibility', 'none');
-		this.className = this.className.substr(0, this.className.indexOf(' active'));
-	} else {
-		this.className += ' active';
-		map.setLayoutProperty(layer, 'visibility', 'visible');
-	}
-}
-
-//-----------------------------------------------------------------------
-
-function filterKeyUp(event) {
-	'use strict';
-
-	// https://www.mapbox.com/mapbox-gl-js/example/filter-features-within-map-view/
-	// https://www.mapbox.com/mapbox-gl-js/example/filter-markers-by-input/
-
-//	var value = event.target.value.trim().toLowerCase();
-//	layerIDs.forEach(function (layerID) {
-//		map.setLayoutProperty(layerID, 'visibility', layerID.indexOf(value) > -1 ? 'visible' : 'none');
-//	});
-}
-
-//-----------------------------------------------------------------------
-
-function buildMenu() {
-	'use strict';
-
-	var sources = getDataSources(),
-		i,
-		elem,
-		omnibox = document.getElementById('omnibox');
-
-	elem = document.createElement('input');
-	elem.type = 'text';
-	elem.name = 'filter';
-	elem.id = 'filter';
-	elem.placeholder = 'In Krefeld suchen';
-	omnibox.appendChild(elem);
-
-	for (i = 0; i < sources.length; ++i) {
-		if (typeof sources[i].layer !== 'undefined') {
-			elem = document.createElement('a');
-			elem.href = '#';
-//			elem.className = 'active';
-			elem.textContent = sources[i].title;
-			elem.layerName = sources[i].layer;
-			elem.onclick = menuClick;
-
-			if (typeof sources[i].icon !== 'undefined') {
-				elem.className = 'icon ' + sources[i].icon;
-			}
-
-			omnibox.appendChild(elem);
-		}
-	}
-
-	elem = document.getElementById('filter');
-	elem.focus();
-	elem.addEventListener('keyup', filterKeyUp);
-}
-
-//-----------------------------------------------------------------------
-
 function loadGeoJSON(title, url, titleTemplate, icon, filter) {
 	'use strict';
 
@@ -280,6 +205,113 @@ function loadGeoJSONPolygon(title, url) {
 
 //-----------------------------------------------------------------------
 
+function loadData() {
+	'use strict';
+
+	// https://github.com/mapbox/mapbox-gl-styles#standard-icons
+	loadGeoJSON('schools', baseURI + '/map/schulen.json', '{title}', 'school-15', ['!=', 'title', '']);
+	loadGeoJSON('kindergartens', baseURI + '/map/kindergartens.json', '{title}', 'playground-15', ['!=', 'title', '']);
+	loadGeoJSON('restaurants', baseURI + '/map/hotels.json', '{title}', 'restaurant-15', ['==', 'restaurant', true]);
+	loadGeoJSON('hotels', baseURI + '/map/hotels.json', '{title}', 'lodging-15', ['==', 'hotel', true]);
+	loadGeoJSONPolygon('VERWALT_EINH', baseURI + '/map/ALKIS_ADV_SHAPE_Krefeld_VERWALT_EINH.json');
+}
+
+//-----------------------------------------------------------------------
+
+function menuClick(event) {
+//	'use strict';
+
+	var layer = this.layerName,
+		visibility;
+
+	event.preventDefault();
+	event.stopPropagation();
+
+	visibility = map.getLayoutProperty(layer, 'visibility');
+
+	if (visibility === 'visible') {
+		map.setLayoutProperty(layer, 'visibility', 'none');
+		this.className = this.className.substr(0, this.className.indexOf(' active'));
+	} else {
+		this.className += ' active';
+		map.setLayoutProperty(layer, 'visibility', 'visible');
+	}
+}
+
+//-----------------------------------------------------------------------
+/*
+function changeMapStyle(event) {
+	'use strict';
+
+	event.preventDefault();
+	event.stopPropagation();
+
+    map.setStyle('mapbox://styles/mapbox/satellite-v9');
+	loadData();
+}
+*/
+//-----------------------------------------------------------------------
+
+function filterKeyUp(event) {
+	'use strict';
+
+	// https://www.mapbox.com/mapbox-gl-js/example/filter-features-within-map-view/
+	// https://www.mapbox.com/mapbox-gl-js/example/filter-markers-by-input/
+
+//	var value = event.target.value.trim().toLowerCase();
+//	layerIDs.forEach(function (layerID) {
+//		map.setLayoutProperty(layerID, 'visibility', layerID.indexOf(value) > -1 ? 'visible' : 'none');
+//	});
+}
+
+//-----------------------------------------------------------------------
+
+function buildMenu() {
+	'use strict';
+
+	var sources = getDataSources(),
+		i,
+		elem,
+		omnibox = document.getElementById('omnibox');
+
+	elem = document.createElement('input');
+	elem.type = 'text';
+	elem.name = 'filter';
+	elem.id = 'filter';
+	elem.placeholder = 'In Krefeld suchen';
+	omnibox.appendChild(elem);
+
+	for (i = 0; i < sources.length; ++i) {
+		if (typeof sources[i].layer !== 'undefined') {
+			elem = document.createElement('a');
+			elem.href = '#';
+//			elem.className = 'active';
+			elem.textContent = sources[i].title;
+			elem.layerName = sources[i].layer;
+			elem.onclick = menuClick;
+
+			if (typeof sources[i].icon !== 'undefined') {
+				elem.className = 'icon ' + sources[i].icon;
+			}
+
+			omnibox.appendChild(elem);
+		}
+	}
+
+//	elem = document.createElement('a');
+//	elem.href = '#';
+//	elem.textContent = 'Satellit anzeigen';
+//	elem.id = 'mapstyle';
+//	elem.onclick = changeMapStyle;
+//	omnibox.appendChild(elem);
+
+	elem = document.getElementById('filter');
+	elem.focus();
+	elem.addEventListener('keyup', filterKeyUp);
+}
+
+//-----------------------------------------------------------------------
+
 map.on('load', function () {
 	'use strict';
 
@@ -304,12 +336,7 @@ map.on('load', function () {
 	map.setPaintProperty('building', 'fill-color', '#f4eaed');
 	map.setPaintProperty('park', 'fill-color', '#a7ca96');
 
-	// https://github.com/mapbox/mapbox-gl-styles#standard-icons
-	loadGeoJSON('schools', baseURI + '/map/schulen.json', '{title}', 'school-15', ['!=', 'title', '']);
-	loadGeoJSON('kindergartens', baseURI + '/map/kindergartens.json', '{title}', 'playground-15', ['!=', 'title', '']);
-	loadGeoJSON('restaurants', baseURI + '/map/hotels.json', '{title}', 'restaurant-15', ['==', 'restaurant', true]);
-	loadGeoJSON('hotels', baseURI + '/map/hotels.json', '{title}', 'lodging-15', ['==', 'hotel', true]);
-	loadGeoJSONPolygon('VERWALT_EINH', baseURI + '/map/ALKIS_ADV_SHAPE_Krefeld_VERWALT_EINH.json');
+	loadData();
 	buildMenu();
 
 	// next step:
