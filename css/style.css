@@ -10,7 +10,7 @@ body {
 	width: 100%;
 }
 
-#menu {
+#omnibox {
 	background: #fff;
 	border-radius: 4px;
 	box-shadow: 0 0 0 2px rgba(0, 0, 0, .1);
@@ -19,37 +19,128 @@ body {
 	position: absolute;
 	top: 10px;
 	z-index: 1;
-	width: 12em;
+	width: 12rem;
 }
 
-#menu a {
+#omnibox:empty {
+	box-shadow: none;
+}
+
+#omnibox a {
 	border: none;
 	border-bottom: 1px solid #ddd;
 	color: #444;
 	display: block;
 	font-size: 13px;
-	line-height: 29px;
+	line-height: 2.5em;
 	margin: 0;
 	overflow: hidden;
-	padding: 0 10px;
+	padding: 0 .25em .2em .25em;
 	text-align: left;
 	text-decoration: none;
 	white-space: nowrap;
+	transition-property: background-color,border-color;
+	transition-duration: .3s;
 }
 
-#menu a:last-child {
+#omnibox a:focus {
+	outline: none;
+}
+
+#omnibox a:last-child {
 	border-bottom: none;
 }
 
-#menu a:hover {
+#omnibox a:hover {
 	background-color: rgba(0, 0, 0, .05);
 }
 
-#menu a.active {
+#omnibox a.active_ {
 	background-color: #3887be;
 	color: #ffffff;
 }
 
-#menu a.active:hover {
+#omnibox a.active_:hover {
 	background: #3074a4;
+}
+
+#omnibox a.icon:before {
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: 2em;
+	border: 1px solid transparent;
+	border-radius: 50%;
+	content: '';
+	display: inline-block;
+	height: 2em;
+	line-height: 2em;
+	margin: 0 .25em 0 0;
+	opacity: .3;
+	text-align: center;
+	vertical-align: middle;
+	width: 2em;
+	transition-property: background-color,border-color;
+	transition-duration: .5s;
+}
+#omnibox a.active.icon:before {
+	opacity: 1;
+}
+#omnibox a:hover.icon:before {
+	border-color: #888;
+}
+#omnibox a.icon.border:before {
+}
+#omnibox a.active.icon.border:before {
+	background-color: #FFE5E5;
+	border-color: #FFCCCC;
+}
+#omnibox a.icon.school:before {
+	background-image: url('https://cdn.rawgit.com/mapbox/mapbox-gl-styles/master/sprites/bright-v9/_svg/school-15.svg');
+}
+#omnibox a.active.icon.school:before {
+	background-color: #D9B800;
+	border-color: #8c7700;
+}
+#omnibox a.icon.hotel:before {
+	background-image: url('https://cdn.rawgit.com/mapbox/mapbox-gl-styles/master/sprites/bright-v9/_svg/lodging-15.svg');
+}
+#omnibox a.active.icon.hotel:before {
+	background-color: #A67552;
+	border-color: #735139;
+}
+#omnibox a.icon.restaurant:before {
+	background-image: url('https://cdn.rawgit.com/mapbox/mapbox-gl-styles/master/sprites/bright-v9/_svg/restaurant-15.svg');
+}
+#omnibox a.active.icon.restaurant:before {
+	background-color: #DF9062;
+	border-color: #cc6529;
+}
+
+#omnibox input#filter {
+	background: transparent;
+	border: none;
+	border-bottom: 1px solid #ddd;
+	font-size: 14px;
+	font-weight: 500;
+	height: 22px;
+	line-height: 22px;
+	margin: 0;
+	padding: .7em 1.2em;
+	transition-property: color;
+	transition-duration: .3s;
+	vertical-align: top;
+	width: 10rem;
+}
+
+#omnibox input#filter::-webkit-input-placeholder {
+	color:#888;
+}
+#omnibox input#filter::-moz-placeholder {
+	color:#888;
+}
+#omnibox input#filter:-ms-input-placeholder {
+	color:#888;
+}
+#omnibox input#filter:-moz-placeholder {
+	color:#888;
 }

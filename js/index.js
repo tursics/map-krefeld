@@ -19,6 +19,7 @@ var map = new mapboxgl.Map({
 	hash: true
 //	maxBounds: If set, the map will be constrained to the given bounds
 });
+var layerIDs = [];
 
 //-----------------------------------------------------------------------
 
@@ -29,7 +30,7 @@ function getDataSources() {
 		{
 			title: 'Stadt Krefeld',
 			layer: 'VERWALT_EINH',
-			portalURI: 'https://www.offenesdatenportal.de/dataset/liegenschaftskataster-stadt-krefeld'
+			icon: 'border'
 		},
 		{
 			title: 'Liegenschaftskataster Stadt Krefeld',
@@ -69,15 +70,18 @@ function getDataSources() {
 		},
 		{
 			title: 'Schulen',
-			layer: 'schools'
+			layer: 'schools',
+			icon: 'school'
 		},
 		{
 			title: 'Hotels',
-			layer: 'hotels'
+			layer: 'hotels',
+			icon: 'hotel'
 		},
 		{
 			title: 'Restaurants',
-			layer: 'restaurants'
+			layer: 'restaurants',
+			icon: 'restaurant'
 		},
 		{
 			title: 'Veranstaltungskalender der Stadt Krefeld',
@@ -115,11 +119,24 @@ function menuClick(event) {
 
 	if (visibility === 'visible') {
 		map.setLayoutProperty(layer, 'visibility', 'none');
-		this.className = '';
+		this.className = this.className.substr(0, this.className.indexOf(' active'));
 	} else {
-		this.className = 'active';
+		this.className += ' active';
 		map.setLayoutProperty(layer, 'visibility', 'visible');
 	}
+}
+
+//-----------------------------------------------------------------------
+
+function filterKeyUp(event) {
+	'use strict';
+
+	// If the input value matches a layerID set
+	// it's visibility to 'visible' or else hide it.
+//	var value = event.target.value.trim().toLowerCase();
+//	layerIDs.forEach(function (layerID) {
+//		map.setLayoutProperty(layerID, 'visibility', layerID.indexOf(value) > -1 ? 'visible' : 'none');
+//	});
 }
 
 //-----------------------------------------------------------------------
@@ -127,26 +144,38 @@ function menuClick(event) {
 function buildMenu() {
 	'use strict';
 
-
 	var sources = getDataSources(),
 		i,
-		link,
-		layers;
+		elem,
+		omnibox = document.getElementById('omnibox');
+
+	elem = document.createElement('input');
+	elem.type = 'text';
+	elem.name = 'filter';
+	elem.id = 'filter';
+	elem.placeholder = 'In Krefeld suchen';
+	omnibox.appendChild(elem);
 
 	for (i = 0; i < sources.length; ++i) {
 		if (typeof sources[i].layer !== 'undefined') {
-			link = document.createElement('a');
-			link.href = '#';
-//			link.className = 'active';
-			link.textContent = sources[i].title;
-			link.layerName = sources[i].layer;
+			elem = document.createElement('a');
+			elem.href = '#';
+//			elem.className = 'active';
+			elem.textContent = sources[i].title;
+			elem.layerName = sources[i].layer;
+			elem.onclick = menuClick;
 
-			link.onclick = menuClick;
+			if (typeof sources[i].icon !== 'undefined') {
+				elem.className = 'icon ' + sources[i].icon;
+			}
 
-			layers = document.getElementById('menu');
-			layers.appendChild(link);
+			omnibox.appendChild(elem);
 		}
 	}
+
+	elem = document.getElementById('filter');
+	elem.focus();
+	elem.addEventListener('keyup', filterKeyUp);
 }
 
 //-----------------------------------------------------------------------
@@ -154,27 +183,38 @@ function buildMenu() {
 function loadGeoJSON(title, url, titleTemplate, icon, filter) {
 	'use strict';
 
-	map.addSource(title, {
-		type: 'geojson',
-		data: url
-	});
+	if (!map.getSource(title)) {
+		map.addSource(title, {
+			type: 'geojson',
+			data: url
+		});
+	}
 
-	map.addLayer({
-		id: title,
-		type: 'symbol',
-		source: title,
-		visibility: 'none',
-		filter: filter,
-		layout: {
-			'icon-image': icon,
-			'icon-size': 2,
-			'text-field': titleTemplate,
-			'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
-			'text-offset': [0, 0.6],
-			'text-anchor': 'top'
-		}
-	});
-	map.setLayoutProperty(title, 'visibility', 'none');
+	if (!map.getLayer(title)) {
+		map.addLayer({
+			id: title,
+			type: 'symbol',
+			source: title,
+			visibility: 'none',
+			filter: filter,
+			layout: {
+				'icon-image': icon,
+				'icon-size': 2,
+				'text-field': titleTemplate,
+				'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
+				'text-offset': [0, 0.6],
+				'text-anchor': 'top'
+			},
+			paint: {
+				'text-color': '#444',
+				'text-halo-color': '#fff',
+				'text-halo-width': 1
+			}
+		});
+		map.setLayoutProperty(title, 'visibility', 'none');
+
+		layerIDs.push(title);
+	}
 }
 
 //-----------------------------------------------------------------------
@@ -182,26 +222,30 @@ function loadGeoJSON(title, url, titleTemplate, icon, filter) {
 function loadGeoJSONLine(title, url) {
 	'use strict';
 
-	map.addSource(title, {
-		type: 'geojson',
-		data: url
-	});
+	if (!map.getSource(title)) {
+		map.addSource(title, {
+			type: 'geojson',
+			data: url
+		});
+	}
 
-	map.addLayer({
-		id: title,
-		type: 'fill',
-		source: title,
-		visibility: 'none',
-		layout: {
-			'line-join': 'round',
-			'line-cap': 'round'
-		},
-		paint: {
-			'line-color': '#888',
-			'line-width': 8
-		}
-	});
-	map.setLayoutProperty(title, 'visibility', 'none');
+	if (!map.getLayer(title)) {
+		map.addLayer({
+			id: title,
+			type: 'fill',
+			source: title,
+			visibility: 'none',
+			layout: {
+				'line-join': 'round',
+				'line-cap': 'round'
+			},
+			paint: {
+				'line-color': '#888',
+				'line-width': 8
+			}
+		});
+		map.setLayoutProperty(title, 'visibility', 'none');
+	}
 }
 
 //-----------------------------------------------------------------------
@@ -209,23 +253,27 @@ function loadGeoJSONLine(title, url) {
 function loadGeoJSONPolygon(title, url) {
 	'use strict';
 
-	map.addSource(title, {
-		type: 'geojson',
-		data: url
-	});
+	if (!map.getSource(title)) {
+		map.addSource(title, {
+			type: 'geojson',
+			data: url
+		});
+	}
 
-	map.addLayer({
-		id: title,
-		type: 'fill',
-		source: title,
-		visibility: 'none',
-		layout: {},
-		paint: {
-			'fill-color': '#f00',
-			'fill-opacity': 0.05
-		}
-	});
-	map.setLayoutProperty(title, 'visibility', 'none');
+	if (!map.getLayer(title)) {
+		map.addLayer({
+			id: title,
+			type: 'fill',
+			source: title,
+			visibility: 'none',
+			layout: {},
+			paint: {
+				'fill-color': '#f00',
+				'fill-opacity': 0.05
+			}
+		});
+		map.setLayoutProperty(title, 'visibility', 'none');
+	}
 }
 
 //-----------------------------------------------------------------------
