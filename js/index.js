@@ -12,12 +12,12 @@ var map = new mapboxgl.Map({
 	container: 'map',
 	style: 'mapbox://styles/mapbox/streets-v9', //streets-v9 outdoors-v9 light-v9 dark-v9 satellite-v9 satellite-streets-v9
 	center: [6.559, 51.334],
-	minZoom: 11,
+	minZoom: 10,
 	maxZoom: 19,
 	zoom: 16,
 	pitch: 60,
-	hash: true
-//	maxBounds: If set, the map will be constrained to the given bounds
+	hash: true,
+	maxBounds: [[6.4, 51.22], [6.8, 51.46]]
 });
 var layerIDs = [];
 
@@ -131,8 +131,9 @@ function menuClick(event) {
 function filterKeyUp(event) {
 	'use strict';
 
-	// If the input value matches a layerID set
-	// it's visibility to 'visible' or else hide it.
+	// https://www.mapbox.com/mapbox-gl-js/example/filter-features-within-map-view/
+	// https://www.mapbox.com/mapbox-gl-js/example/filter-markers-by-input/
+
 //	var value = event.target.value.trim().toLowerCase();
 //	layerIDs.forEach(function (layerID) {
 //		map.setLayoutProperty(layerID, 'visibility', layerID.indexOf(value) > -1 ? 'visible' : 'none');
@@ -310,7 +311,7 @@ map.on('load', function () {
 	buildMenu();
 
 	// next step:
-	// https://www.mapbox.com/mapbox-gl-js/example/setstyle/
+	// https://www.mapbox.com/mapbox-gl-js/example/toggle-interaction-handlers/
 	// https://github.com/mapbox/mapbox-gl-styles
 	// https://www.krefeld.de/de/vermessung/stadtkarten/
 	// https://www.krefeld.de/de/dienstleistungen/stadtkarte-von-krefeld-im-geoportal-niederrhein/
