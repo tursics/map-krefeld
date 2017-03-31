@@ -13,10 +13,29 @@ function start() {
 	libFile.downloadSpecialFormatData(uri, function (data) {
 		var result = [],
 			i,
-			item;
+			j,
+			item,
+			hotel,
+			restaurant,
+			cat;
 
 		for (i = 0; i < data.length; ++i) {
 			item = data[i];
+			hotel = false;
+			restaurant = false;
+			cat = item.object.Kategorie1;
+
+			if ('string' === typeof cat) {
+				cat = [cat];
+			}
+			for (j = 0; j < cat.length; ++j) {
+				if (-1 !== ['Hotel', 'Hotel_Rest', 'Gästehaus', 'Ferienzimmer', 'Gruppenunterkunft'].indexOf(cat[j])) {
+					hotel = true;
+				} else if (-1 !== ['Gastronomie'].indexOf(cat[j])) {
+					restaurant = true;
+				}
+			}
+
 			result.push({
 				title: item.object.Bezeichnung,
 				description: item.object.Content_2,
@@ -24,6 +43,8 @@ function start() {
 				cat1: item.object.Kategorie1,
 				cat2: item.object.Kategorie2,
 				cat3: item.object.Kategorie3,
+				hotel: hotel,
+				restaurant: restaurant,
 				street: item.object.SStrasse,
 				zip: item.object.SPLZ,
 				city: item.object.SOrt,
