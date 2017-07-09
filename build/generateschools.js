@@ -10,7 +10,7 @@ function start() {
 		libFile = require('./libFile'),
 		libGeocode = require('./libGeocode');
 
-	libFile.downloadSpecialFormatData(uri, function (data) {
+/*	libFile.downloadSpecialFormatData(uri, function (data) {
 		var result = [],
 			i,
 			item;
@@ -39,14 +39,23 @@ function start() {
 		libGeocode.geocode(result, function (geoJSON) {
 			libFile.saveGeoJSON(geoJSON, 'schulen.json', function (filePath) {
 				console.log(filePath);
-			});
+*/
+				libFile.downloadURI('http://geoportal-niederrhein.de/files/opendatagis/Stadt_Krefeld/Schule.geojson', function(filePath) {
+					var fs = require('fs');
+
+					fs.createReadStream(filePath).pipe(fs.createWriteStream('../map/schulen_new.geojson'));
+
+					console.log(filePath);
+				});
+/*			});
 		});
-	});
+	});*/
 }
 
 //-----------------------------------------------------------------------
 
-require('./libGeocode').init(start);
+//require('./libGeocode').init(start);
+start();
 
 //-----------------------------------------------------------------------
 //eof
