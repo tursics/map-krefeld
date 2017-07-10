@@ -50,6 +50,9 @@ module.exports = {
 			http.get(uri, function (response) {
 				response.pipe(file);
 			});
+		} else if (uri.indexOf('/') === 0) {
+			fs.createReadStream(uri).pipe(fs.createWriteStream(filepath));
+			callback();
 		} else {
 			callback();
 		}
@@ -146,6 +149,24 @@ module.exports = {
 				idx = 0;
 
 				processOne();
+			});
+		});
+	},
+
+	//-------------------------------------------------------------------
+
+	downloadGeoJSON: function (uri, callback) {
+		'use strict';
+
+		var result = [],
+			that = this;
+
+		this.downloadURI(uri, function (filePath) {
+			that.getJSON(filePath, function (json) {
+				result = json || {features: [] };
+				result = result.features || [];
+
+				callback(result);
 			});
 		});
 	},
