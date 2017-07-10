@@ -6,8 +6,7 @@
 function start() {
 	'use strict';
 
-//	var uri = 'http://geoportal-niederrhein.de/files/opendatagis/Stadt_Krefeld/POI_Gesamt.geojson',
-	var uri = '/Users/thomastursics/Downloads/POI_Gesamt.geojson',
+	var uri = 'http://geoportal-niederrhein.de/files/opendatagis/Stadt_Krefeld/POI_Gesamt.geojson',
 		libFile = require('./libFile'),
 		libGeocode = require('./libGeocode');
 
@@ -24,16 +23,16 @@ function start() {
 						  30100,
 						  40100, 49000,
 						  70300, 79000],
-			filenames = ['dogybags', 'mobilesenders', 'playgrounds',
-						 'chirches', 'chirches', 'chirches', 'chircheothers', 'capells', 'lastrest',
-						 'kindergarten', 'kindergarten', 'kindergarten', 'kindergarten',
+			filenames = ['dogwastebags', 'celltowers', 'playgrounds',
+						 'churches', 'churches', 'churches', 'churcheothers', 'chapels', 'cemetery',
+						 'kindergartens', 'kindergartens', 'kindergartens', 'kindergartens',
 						 'schools', 'schools', 'schools', 'schools', 'schools', 'schools', 'schools',
-						 'university', 'schoolsothers', 'sportsfield', 'sportshall', 'sportsschwimming', 'sportsice',
-						 'youngth', 'hotels', 'parks', 'parking',
+						 'universities', 'schoolsothers', 'sportsfields', 'gymnasiums', 'swimmingbaths', 'icerinks',
+						 'youthcenter', 'hotels', 'parks', 'parking',
 						 'firestations', 'policestations', 'hospitals',
 						 'museums', 'theaters', 'culture', 'libraries', 'cultureothers',
-						 'careservices',
-						 'disabledFleets', 'disabledothers',
+						 'seniors',
+						 'disabledfleets', 'disabledothers',
 						 'administration', 'administrationothers'],
 			i,
 			pos,
@@ -74,7 +73,16 @@ function start() {
 		}
 
 		for (pos = 0; pos < result.length; ++pos) {
-			save(pos);
+			if (filenames[pos] !== '') {
+				for (i = pos + 1; i < result.length; ++i) {
+					if (filenames[pos] === filenames[i]) {
+						result[pos] = result[pos].concat(result[i]);
+						filenames[i] = '';
+					}
+				}
+
+				save(pos);
+			}
 		}
 	});
 }
