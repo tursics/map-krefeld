@@ -151,7 +151,14 @@ module.exports = {
 			features = [];
 
 		for (i = 0; i < data.length; ++i) {
-			point = this.street2geo(data[i].street || '', data[i].city || '');
+			if (('number' === typeof data[i].lat) && (data[i].lat > 5) && (data[i].lat < 60) && ('number' === typeof data[i].lng) && (data[i].lng > 5) && (data[i].lng < 60)) {
+				point = {
+					lat: parseInt(data[i].lat * 1000000, 10) / 1000000,
+					lng: parseInt(data[i].lng * 1000000, 10) / 1000000
+				};
+			} else {
+				point = this.street2geo(data[i].street || '', data[i].city || '');
+			}
 			data[i].lat = point.lat;
 			data[i].lng = point.lng;
 
