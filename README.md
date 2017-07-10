@@ -9,6 +9,12 @@ Most of the datasets are suited to display on a map (e.g. lists of given names n
 
 => [Test a live system](https://tursics.github.io/map-krefeld/)
 
+## Prepare yourself
+
+Install ```nodejs``` and the package manager ```npm```. After finishing run the update command:
+
+    npm update
+
 ## First steps
 
 One, most important, fundamental, problem: All data have postal addresses and no geo-coded position coordinates.
