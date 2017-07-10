@@ -19,6 +19,7 @@
   "dependencies": {
     "@turf/turf": "^3.14.1",
     "epsg": "^0.3.0",
+    "mapbox-gl": "^0.38.0",
     "proj4": "^2.4.3",
     "reproject": "^1.1.1",
     "shapefile": "^0.6.2"
