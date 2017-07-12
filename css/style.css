@@ -6,9 +6,82 @@ body {
 #map {
 	bottom: 0;
 	position: absolute;
-	top: 0;
+	top: 66px;
 	width: 100%;
 }
+
+/* ----------------------- */
+
+#headerbar {
+	background: #21538e;
+	color: #fff;
+	min-height: 66px;
+	position: relative;
+	z-index: 1000;
+}
+#headerbar .fluid {
+	margin: 0 auto;
+	padding: 0 15px;
+}
+.navbar-header {
+	float: left;
+	margin-left: 0;
+	margin-right: 0;
+}
+.navbar-brand {
+	color: #fff;
+	float: left;
+	font-size: 18px;
+	height: 50px;
+	line-height: 33px;
+	margin-left: -15px;
+	padding: 15px;
+	text-decoration: none;
+}
+.navbar-collapse {
+	display: block;
+	height: auto;
+	margin-left: 0;
+	margin-right: 0;
+	overflow: visible;
+	padding-bottom: 0;
+	padding-left: 0;
+	padding-right: 0;
+	width: auto;
+}
+.nav {
+	padding-left: 0;
+	list-style: none;
+}
+.navbar-nav > li {
+	position: relative;
+	display: block;
+}
+.navbar-nav {
+	float: left;
+	margin: 0;
+}
+.navbar-nav > li {
+	float: left;
+}
+.navbar-nav > li > a {
+	color: #fff;
+	display: block;
+	line-height: 33px;
+	padding: 15px;
+	position: relative;
+	text-decoration: none;
+}
+.navbar-nav > li > .dropdown-menu {
+	margin-top: 0;
+	position: absolute;
+	top: 100%;
+}
+.open > .dropdown-menu {
+	display: block;
+}
+
+/* ----------------------- */
 
 #omnibox {
 	background: #fff;
@@ -17,7 +90,7 @@ body {
 	font-family: 'Open Sans', sans-serif;
 	left: 10px;
 	position: absolute;
-	top: 10px;
+	top: 77px;
 	z-index: 1;
 	width: 12rem;
 }
