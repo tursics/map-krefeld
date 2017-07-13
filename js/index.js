@@ -3,6 +3,19 @@
 
 //-----------------------------------------------------------------------
 
+var mapboxgl = mapboxgl || {
+	Map: function () {
+		'use strict';
+
+		return {
+			on: function () {
+			}
+		};
+	}
+};
+
+//-----------------------------------------------------------------------
+
 mapboxgl.accessToken = 'pk.eyJ1IjoidHVyc2ljcyIsImEiOiJjajBoN3hzZGwwMDJsMnF0YW96Y2l3OGk2In0._5BdojVYvNuR6x4fQNYZrA';
 var baseURI = 'https://tursics.github.io/map-krefeld';
 
@@ -306,6 +319,42 @@ function filterKeyUp(event) {
 
 //-----------------------------------------------------------------------
 
+function buildNavigation() {
+	'use strict';
+
+	var headerbar = document.getElementById('headerbar'),
+		str = '';
+
+	str += '<div class="fluid">';
+
+	str += '<div class="navbar-header">';
+	str += '<a class="navbar-brand" href="index.html">Karte</a>';
+	str += '</div>';
+
+	str += '<div class="navbar-collapse">';
+	str += '<div class="nav navbar-nav">';
+	
+	str += '<li class="dropdown"><a class="dropdown-toggle" href="#">';
+	str += 'Kategorie 1';
+	str += '</a><ul class="dropdown-menu">';
+	str += '<li><a href="#">Kategorie 2</a></li>';
+	str += '</ul></li>';
+
+	str += '<li class="dropdown"><a class="dropdown-toggle" href="#">';
+	str += 'Kategorie 2';
+	str += '</a><ul class="dropdown-menu">';
+	str += '</ul></li>';
+	
+	str += '</div>';
+	str += '</div>';
+
+	str += '</div>';
+
+	headerbar.innerHTML = str;
+}
+
+//-----------------------------------------------------------------------
+
 function buildMenu() {
 	'use strict';
 
@@ -385,3 +434,9 @@ map.on('load', function () {
 	// https://www.krefeld.de/de/vermessung/stadtkarten/
 	// https://www.krefeld.de/de/dienstleistungen/stadtkarte-von-krefeld-im-geoportal-niederrhein/
 });
+
+//-----------------------------------------------------------------------
+
+//buildNavigation();
+
+//-----------------------------------------------------------------------
