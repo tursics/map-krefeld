@@ -14,6 +14,7 @@ body {
 
 #headerbar {
 	background: #3cc2ff;
+	border-bottom: 2px solid #21538e;
 	color: #fff;
 	min-height: 66px;
 	position: relative;
@@ -29,7 +30,7 @@ body {
 	margin-right: 0;
 }
 .navbar-brand {
-	color: #fff;
+	color: #21538e;
 	float: left;
 	font-size: 18px;
 	height: 50px;
@@ -65,7 +66,7 @@ body {
 	float: left;
 }
 .navbar-nav > li > a {
-	color: #fff;
+	color: #21538e;
 	display: block;
 	line-height: 33px;
 	padding: 15px;

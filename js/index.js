@@ -328,13 +328,13 @@ function buildNavigation() {
 	str += '<div class="fluid">';
 
 	str += '<div class="navbar-header">';
-	str += '<a class="navbar-brand" href="index.html">Karte</a>';
+	str += '<a class="navbar-brand" href="index.html">Krefeld-Karte</a>';
 	str += '</div>';
 
 	str += '<div class="navbar-collapse">';
 	str += '<div class="nav navbar-nav">';
 	
-	str += '<li class="dropdown"><a class="dropdown-toggle" href="#">';
+/*	str += '<li class="dropdown"><a class="dropdown-toggle" href="#">';
 	str += 'Kategorie 1';
 	str += '</a><ul class="dropdown-menu">';
 	str += '<li><a href="#">Kategorie 2</a></li>';
@@ -343,7 +343,7 @@ function buildNavigation() {
 	str += '<li class="dropdown"><a class="dropdown-toggle" href="#">';
 	str += 'Kategorie 2';
 	str += '</a><ul class="dropdown-menu">';
-	str += '</ul></li>';
+	str += '</ul></li>';*/
 	
 	str += '</div>';
 	str += '</div>';
@@ -437,6 +437,6 @@ map.on('load', function () {
 
 //-----------------------------------------------------------------------
 
-//buildNavigation();
+buildNavigation();
 
 //-----------------------------------------------------------------------
