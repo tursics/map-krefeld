@@ -338,9 +338,9 @@ function buildNavigation() {
 	str += 'Kategorie 1';
 	str += '</a><ul class="dropdown-menu">';
 	str += '<li><a href="#">Kategorie 2</a></li>';
-	str += '</ul></li>';
+	str += '</ul></li>';*/
 
-	str += '<li class="dropdown"><a class="dropdown-toggle" href="#">';
+/*	str += '<li class="dropdown"><a class="dropdown-toggle" href="#">';
 	str += 'Kategorie 2';
 	str += '</a><ul class="dropdown-menu">';
 	str += '</ul></li>';*/
