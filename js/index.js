@@ -319,6 +319,50 @@ function filterKeyUp(event) {
 
 //-----------------------------------------------------------------------
 
+function setCallbacksToMenu() {
+	'use strict';
+
+	function onClickCB(e) {
+		var menu = document.getElementsByClassName('dropdown-toggle'),
+			i,
+			menuShown = false;
+
+		console.log('x');
+		for (i = 0; i < menu.length; ++i) {
+			if (menu[i] === e.target) {
+				if (menu[i].parentNode.classList.length === 2) {
+					menu[i].parentNode.classList = ['dropdown'];
+				} else {
+					menu[i].parentNode.classList = ['dropdown open'];
+					menuShown = true;
+				}
+			} else {
+				menu[i].parentNode.classList = ['dropdown'];
+			}
+		}
+
+		menu = document.getElementById('pagecover');
+		menu.classList = [menuShown ? 'open' : ''];
+	}
+
+	var div = document.getElementsByClassName('dropdown-toggle'),
+		i;
+
+	for (i = 0; i < div.length; ++i) {
+//		div[i].onclick = onClickCB;
+		div[i].onmousedown = onClickCB;
+	}
+
+	div = document.getElementById('headerbar');
+//	div.onmousedown = onClickCB;
+
+	div = document.getElementById('pagecover');
+	console.log(div);
+	div.onmousedown = onClickCB;
+}
+
+//-----------------------------------------------------------------------
+
 function buildNavigation() {
 	'use strict';
 
@@ -337,12 +381,19 @@ function buildNavigation() {
 /*	str += '<li class="dropdown"><a class="dropdown-toggle" href="#">';
 	str += 'Kategorie 1';
 	str += '</a><ul class="dropdown-menu">';
-	str += '<li><a href="#">Kategorie 2</a></li>';
-	str += '</ul></li>';*/
+	str += '<li><a href="#">Eintrag 1</a></li>';
+	str += '<li><a href="#">Eintrag 2</a></li>';
+	str += '<li><a href="#">Eintrag 3</a></li>';
+	str += '<li><a href="#">Eintrag 4</a></li>';
+	str += '<li><a href="#">Eintrag 5</a></li>';
+	str += '</ul></li>';
 
-/*	str += '<li class="dropdown"><a class="dropdown-toggle" href="#">';
+	str += '<li class="dropdown"><a class="dropdown-toggle" href="#">';
 	str += 'Kategorie 2';
 	str += '</a><ul class="dropdown-menu">';
+	str += '<li><a href="#">Eintrag A</a></li>';
+	str += '<li><a href="#">Eintrag B</a></li>';
+	str += '<li><a href="#">Eintrag C</a></li>';
 	str += '</ul></li>';*/
 	
 	str += '</div>';
@@ -351,6 +402,8 @@ function buildNavigation() {
 	str += '</div>';
 
 	headerbar.innerHTML = str;
+
+	setCallbacksToMenu();
 }
 
 //-----------------------------------------------------------------------
