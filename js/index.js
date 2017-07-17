@@ -327,7 +327,6 @@ function setCallbacksToMenu() {
 			i,
 			menuShown = false;
 
-		console.log('x');
 		for (i = 0; i < menu.length; ++i) {
 			if (menu[i] === e.target) {
 				if (menu[i].parentNode.classList.length === 2) {
@@ -357,7 +356,6 @@ function setCallbacksToMenu() {
 //	div.onmousedown = onClickCB;
 
 	div = document.getElementById('pagecover');
-	console.log(div);
 	div.onmousedown = onClickCB;
 }
 

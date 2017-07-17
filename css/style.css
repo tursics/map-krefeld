@@ -101,9 +101,17 @@ body {
 	text-decoration: none;
 	transition: linear 200ms background, linear 200ms color;
 }
+.navbar-nav > li.open > a {
+	background: #21538e70;
+	color: #fff;
+}
 .navbar-nav > li > a:hover {
 	background: #21538e20;
 	color: #000;
+}
+.navbar-nav > li.open > a:hover {
+	background: #21538ea0;
+	color: #fff;
 }
 .navbar-nav > li > .dropdown-menu {
 	background: #fff;
