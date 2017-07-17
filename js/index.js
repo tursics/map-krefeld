@@ -17,7 +17,8 @@ var mapboxgl = mapboxgl || {
 //-----------------------------------------------------------------------
 
 mapboxgl.accessToken = 'pk.eyJ1IjoidHVyc2ljcyIsImEiOiJjajBoN3hzZGwwMDJsMnF0YW96Y2l3OGk2In0._5BdojVYvNuR6x4fQNYZrA';
-var baseURI = 'https://tursics.github.io/map-krefeld';
+var baseURI = 'https://tursics.github.io/map-krefeld',
+	appName = 'Krefeld-Karte';
 
 //-----------------------------------------------------------------------
 
@@ -319,6 +320,27 @@ function filterKeyUp(event) {
 
 //-----------------------------------------------------------------------
 
+function getJSON(uri, callback) {
+	'use strict';
+
+	var request = new XMLHttpRequest();
+	request.open('GET', uri, true);
+	request.onload = function () {
+		if (request.status >= 200 && request.status < 400) {
+			var data = JSON.parse(request.responseText);
+			callback(data);
+		} else {
+			callback(null);
+		}
+	};
+	request.onerror = function () {
+		callback(null);
+	};
+	request.send();
+}
+
+//-----------------------------------------------------------------------
+
 function setCallbacksToMenu() {
 	'use strict';
 
@@ -361,6 +383,45 @@ function setCallbacksToMenu() {
 
 //-----------------------------------------------------------------------
 
+function buildNavigationAsync(data) {
+	'use strict';
+
+	var navbar = document.getElementsByClassName('navbar-collapse'),
+		d,
+		m,
+		str = '';
+
+	data = data || [];
+	str += '<ul class="nav navbar-nav">';
+
+	for (d = 0; d < data.length; ++d) {
+		str += '<li class="dropdown">';
+		str += '<a class="dropdown-toggle" href="#">' + data[d].title + '</a>';
+		str += '<ul class="dropdown-menu">';
+
+		data[d].menu = data[d].menu || [];
+
+		for (m = 0; m < data[d].menu.length; ++m) {
+			data[d].menu[m].title = data[d].menu[m].title || '';
+			data[d].menu[m].id = data[d].menu[m].id || '';
+			data[d].menu[m].icon = data[d].menu[m].icon || 'marker';
+
+			str += '<li><a href="#" class="icon ' + data[d].menu[m].icon + '-15">' + data[d].menu[m].title + '</a></li>';
+		}
+
+		str += '</ul>';
+		str += '</li>';
+	}
+
+	str += '</ul>';
+
+	navbar[0].innerHTML = str;
+
+	setCallbacksToMenu();
+}
+
+//-----------------------------------------------------------------------
+
 function buildNavigation() {
 	'use strict';
 
@@ -370,38 +431,19 @@ function buildNavigation() {
 	str += '<div class="fluid">';
 
 	str += '<div class="navbar-header">';
-	str += '<a class="navbar-brand" href="index.html">Krefeld-Karte</a>';
+	str += '<a class="navbar-brand" href="index.html">' + appName + '</a>';
 	str += '</div>';
 
 	str += '<div class="navbar-collapse">';
-	str += '<div class="nav navbar-nav">';
-	
-/*	str += '<li class="dropdown"><a class="dropdown-toggle" href="#">';
-	str += 'Kategorie 1';
-	str += '</a><ul class="dropdown-menu">';
-	str += '<li><a href="#">Eintrag 1</a></li>';
-	str += '<li><a href="#">Eintrag 2</a></li>';
-	str += '<li><a href="#">Eintrag 3</a></li>';
-	str += '<li><a href="#">Eintrag 4</a></li>';
-	str += '<li><a href="#">Eintrag 5</a></li>';
-	str += '</ul></li>';
-
-	str += '<li class="dropdown"><a class="dropdown-toggle" href="#">';
-	str += 'Kategorie 2';
-	str += '</a><ul class="dropdown-menu">';
-	str += '<li><a href="#">Eintrag A</a></li>';
-	str += '<li><a href="#">Eintrag B</a></li>';
-	str += '<li><a href="#">Eintrag C</a></li>';
-	str += '</ul></li>';*/
-	
-	str += '</div>';
 	str += '</div>';
 
 	str += '</div>';
 
 	headerbar.innerHTML = str;
 
-	setCallbacksToMenu();
+	getJSON('map/menu.json', function (data) {
+//		buildNavigationAsync(data);
+	});
 }
 
 //-----------------------------------------------------------------------

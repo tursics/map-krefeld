@@ -208,7 +208,7 @@ body {
 	background: #3074a4;
 }
 
-#omnibox a.icon:before {
+#omnibox a.icon:before, .navbar-nav a.icon:before {
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: 2em;
@@ -226,15 +226,15 @@ body {
 	transition-property: background-color,border-color;
 	transition-duration: .5s;
 }
-#omnibox a.active.icon:before {
+#omnibox a.active.icon:before, .navbar-nav a.active.icon:before {
 	opacity: 1;
 }
-#omnibox a:hover.icon:before {
+#omnibox a:hover.icon:before, .navbar-nav a:hover.icon:before {
 	border-color: #888;
 }
-#omnibox a.icon.border:before {
+#omnibox a.icon.border:before, .navbar-nav a.icon.border:before {
 }
-#omnibox a.active.icon.border:before {
+#omnibox a.active.icon.border:before, .navbar-nav a.active.icon.border:before {
 	background-color: #FFE5E5;
 	border-color: #FFCCCC;
 }

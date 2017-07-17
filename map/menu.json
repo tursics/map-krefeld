@@ -1,0 +1,47 @@
+[
+	{
+		"title": "Die Stadt",
+		"menu": [
+			{
+				"title": "Grenzen",
+				"id": "VERWALT_EINH",
+				"icon": "border"
+			},
+			{
+				"title": "Verwaltung",
+				"id": "administration",
+				"icon": "town-hall"
+			}
+		]
+	},
+	{
+		"title": "Tourismus",
+		"menu": [
+			{
+				"title": "Hotels",
+				"id": "hotels",
+				"icon": "hotel"
+			},
+			{
+				"title": "Restaurants",
+				"id": "restaurants",
+				"icon": "restaurant"
+			}
+		]
+	},
+	{
+		"title": "Kinder",
+		"menu": [
+			{
+				"title": "Kindergärten",
+				"id": "kindergartens",
+				"icon": "kindergarten"
+			},
+			{
+				"title": "Schulen",
+				"id": "schools",
+				"icon": "school"
+			}
+		]
+	}
+]
