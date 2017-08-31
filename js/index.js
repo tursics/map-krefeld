@@ -344,7 +344,7 @@ function getJSON(uri, callback) {
 function setCallbacksToMenu() {
 	'use strict';
 
-	function onClickCB(e) {
+	function onClickMenuCB(e) {
 		var menu = document.getElementsByClassName('dropdown-toggle'),
 			i,
 			menuShown = false;
@@ -366,19 +366,57 @@ function setCallbacksToMenu() {
 		menu.classList = [menuShown ? 'open' : ''];
 	}
 
+	function onClickSubMenu(obj) {
+		var layer = obj.dataset.id,
+			visibility = map.getLayoutProperty(layer, 'visibility');
+
+		if (visibility === 'visible') {
+			map.setLayoutProperty(layer, 'visibility', 'none');
+			obj.className = obj.className.substr(0, obj.className.indexOf(' active'));
+		} else {
+			obj.className += ' active';
+			map.setLayoutProperty(layer, 'visibility', 'visible');
+		}
+	}
+
+	function onClickSubMenuCB(e) {
+		var menu = document.getElementsByClassName('dropdown-toggle'),
+			i,
+			obj;
+
+		for (i = 0; i < menu.length; ++i) {
+			menu[i].parentNode.classList = ['dropdown'];
+		}
+
+		menu = document.getElementById('pagecover');
+		menu.classList = [''];
+
+		obj = e.target;
+		if (obj.className.indexOf('submenu') === -1) {
+			obj = e.target.parentNode;
+		}
+
+		onClickSubMenu(obj);
+	}
+
 	var div = document.getElementsByClassName('dropdown-toggle'),
 		i;
 
 	for (i = 0; i < div.length; ++i) {
-//		div[i].onclick = onClickCB;
-		div[i].onmousedown = onClickCB;
+//		div[i].onclick = onClickMenuCB;
+		div[i].onmousedown = onClickMenuCB;
 	}
 
-	div = document.getElementById('headerbar');
-//	div.onmousedown = onClickCB;
+	div = document.getElementsByClassName('submenu');
+	for (i = 0; i < div.length; ++i) {
+		div[i].onmousedown = onClickSubMenuCB;
+	}
+
+//	div = document.getElementById('headerbar');
+//	div.onmousedown = onClickMenuCB;
 
 	div = document.getElementById('pagecover');
-	div.onmousedown = onClickCB;
+	div.onmousedown = onClickMenuCB;
 }
 
 //-----------------------------------------------------------------------
@@ -406,7 +444,7 @@ function buildNavigationAsync(data) {
 			data[d].menu[m].id = data[d].menu[m].id || '';
 			data[d].menu[m].icon = data[d].menu[m].icon || 'marker';
 
-			str += '<li><a href="#" class="icon ' + data[d].menu[m].icon + '-15">' + data[d].menu[m].title + '</a></li>';
+			str += '<li><a href="#" class="submenu icon ' + data[d].menu[m].icon + '-15" data-id="' + data[d].menu[m].id + '"><i class="icon" style="background-image:url(node_modules/mapbox-gl-styles/sprites/bright-v9/_svg/' + data[d].menu[m].icon + '-15.svg);"></i>' + data[d].menu[m].title + '</a></li>';
 		}
 
 		str += '</ul>';
@@ -442,12 +480,12 @@ function buildNavigation() {
 	headerbar.innerHTML = str;
 
 	getJSON('map/menu.json', function (data) {
-//		buildNavigationAsync(data);
+		buildNavigationAsync(data);
 	});
 }
 
 //-----------------------------------------------------------------------
-
+/*
 function buildMenu() {
 	'use strict';
 
@@ -491,7 +529,7 @@ function buildMenu() {
 	elem.focus();
 	elem.addEventListener('keyup', filterKeyUp);
 }
-
+*/
 //-----------------------------------------------------------------------
 
 map.on('load', function () {
@@ -519,7 +557,7 @@ map.on('load', function () {
 	map.setPaintProperty('park', 'fill-color', '#a7ca96');
 
 	loadData();
-	buildMenu();
+//	buildMenu();
 
 	// next step:
 	// https://www.mapbox.com/mapbox-gl-js/example/toggle-interaction-handlers/
