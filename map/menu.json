@@ -5,7 +5,7 @@
 			{
 				"title": "Grenzen",
 				"id": "VERWALT_EINH",
-				"icon": "border"
+				"icon": "circle"
 			},
 			{
 				"title": "Verwaltung",
@@ -20,7 +20,7 @@
 			{
 				"title": "Hotels",
 				"id": "hotels",
-				"icon": "hotel"
+				"icon": "lodging"
 			},
 			{
 				"title": "Restaurants",
@@ -35,12 +35,12 @@
 			{
 				"title": "Kindergärten",
 				"id": "kindergartens",
-				"icon": "kindergarten"
+				"icon": "playground"
 			},
 			{
 				"title": "Schulen",
 				"id": "schools",
-				"icon": "school"
+				"icon": "college"
 			}
 		]
 	}
