@@ -37,94 +37,43 @@ var map = new mapboxgl.Map({
 var layerIDs = [];
 
 //-----------------------------------------------------------------------
+/*
+title: 'Liegenschaftskataster Stadt Krefeld',
+portalURI: 'https://www.offenesdatenportal.de/dataset/liegenschaftskataster-stadt-krefeld'
 
-function getDataSources() {
-	'use strict';
+title: 'Straßenverzeichnis 12/2016 der Stadt Krefeld',
+portalURI: 'https://www.offenesdatenportal.de/dataset/strabenverzeichnis-12-2016-der-stadt-krefeld'
 
-	var sources = [
-		{
-			title: 'Stadt Krefeld',
-			layer: 'VERWALT_EINH',
-			icon: 'border'
-		},
-		{
-			title: 'Liegenschaftskataster Stadt Krefeld',
-			portalURI: 'https://www.offenesdatenportal.de/dataset/liegenschaftskataster-stadt-krefeld'
-		},
-		{
-			title: 'Straßenverzeichnis 12/2016 der Stadt Krefeld',
-			portalURI: 'https://www.offenesdatenportal.de/dataset/strabenverzeichnis-12-2016-der-stadt-krefeld'
-		},
-		{
-			title: 'Familienkarte der Stadt Krefeld',
-			portalURI: 'https://www.offenesdatenportal.de/dataset/familienkarte-der-stadt-krefeld'
-		},
-		{
-			title: 'Integrationsangebote der Stadt Krefeld',
-			portalURI: 'https://www.offenesdatenportal.de/dataset/integrationsangebote-der-stadt-krefeld'
-		},
-		{
-			title: 'Flüchtlingshilfe bei der Stadt Krefeld',
-			portalURI: 'https://www.offenesdatenportal.de/dataset/fluchtlingshilfe-bei-der-stadt-krefeld'
-		},
-		{
-			title: 'Familienkalender der Stadt Krefeld',
-			portalURI: 'https://www.offenesdatenportal.de/dataset/familienkalender-der-stadt-krefeld'
-		},
-		{
-			title: 'Interkultureller Kalender der Stadt Krefeld',
-			portalURI: 'https://www.offenesdatenportal.de/dataset/interkultureller-kalender-der-stadt-krefeld'
-		},
-		{
-			title: 'Bildungspaket in Krefeld',
-			portalURI: 'https://www.offenesdatenportal.de/dataset/bildungspaket'
-		},
-		{
-			title: 'Kindergärten',
-			layer: 'kindergartens',
-			icon: 'kindergarten'
-		},
-		{
-			title: 'Schulen',
-			layer: 'schools',
-			icon: 'school'
-		},
-		{
-			title: 'Hotels',
-			layer: 'hotels',
-			icon: 'hotel'
-		},
-		{
-			title: 'Restaurants',
-			layer: 'restaurants',
-			icon: 'restaurant'
-		},
-		{
-			title: 'Verwaltung',
-			layer: 'administration',
-			icon: 'town-hall'
-		},
-		{
-			title: 'Veranstaltungskalender der Stadt Krefeld',
-			portalURI: 'https://www.offenesdatenportal.de/dataset/veranstaltungskalender-der-stadt-krefeld'
-		},
-		{
-			title: 'Migrantenselbstorganisationen in der Stadt Krefeld',
-			portalURI: 'https://www.offenesdatenportal.de/dataset/migrantenselbstorganisationen-in-der-stadt-krefeld'
-		},
-		{
-			title: 'Familienkompass der Stadt Krefeld',
-			portalURI: 'https://www.offenesdatenportal.de/dataset/familienkompass-der-stadt-krefeld'
-		},
-		{
-			title: 'Wohnungsangebot in Krefeld',
-			portalURI: 'https://www.offenesdatenportal.de/dataset/wohnungsangebot-in-krefeld'
-		}
-	];
+title: 'Familienkarte der Stadt Krefeld',
+portalURI: 'https://www.offenesdatenportal.de/dataset/familienkarte-der-stadt-krefeld'
 
-	return sources;
-}
+title: 'Integrationsangebote der Stadt Krefeld',
+portalURI: 'https://www.offenesdatenportal.de/dataset/integrationsangebote-der-stadt-krefeld'
 
+title: 'Flüchtlingshilfe bei der Stadt Krefeld',
+portalURI: 'https://www.offenesdatenportal.de/dataset/fluchtlingshilfe-bei-der-stadt-krefeld'
+
+title: 'Familienkalender der Stadt Krefeld',
+portalURI: 'https://www.offenesdatenportal.de/dataset/familienkalender-der-stadt-krefeld'
+
+title: 'Interkultureller Kalender der Stadt Krefeld',
+portalURI: 'https://www.offenesdatenportal.de/dataset/interkultureller-kalender-der-stadt-krefeld'
+
+title: 'Bildungspaket in Krefeld',
+portalURI: 'https://www.offenesdatenportal.de/dataset/bildungspaket'
+
+title: 'Veranstaltungskalender der Stadt Krefeld',
+portalURI: 'https://www.offenesdatenportal.de/dataset/veranstaltungskalender-der-stadt-krefeld'
+
+title: 'Migrantenselbstorganisationen in der Stadt Krefeld',
+portalURI: 'https://www.offenesdatenportal.de/dataset/migrantenselbstorganisationen-in-der-stadt-krefeld'
+
+title: 'Familienkompass der Stadt Krefeld',
+portalURI: 'https://www.offenesdatenportal.de/dataset/familienkompass-der-stadt-krefeld'
+
+title: 'Wohnungsangebot in Krefeld',
+portalURI: 'https://www.offenesdatenportal.de/dataset/wohnungsangebot-in-krefeld'
+*/
 //-----------------------------------------------------------------------
 
 function loadGeoJSON(title, url, titleTemplate, icon, filter) {
@@ -272,28 +221,6 @@ function loadData() {
 }
 
 //-----------------------------------------------------------------------
-
-function menuClick(event) {
-//	'use strict';
-
-	var layer = this.layerName,
-		visibility;
-
-	event.preventDefault();
-	event.stopPropagation();
-
-	visibility = map.getLayoutProperty(layer, 'visibility');
-
-	if (visibility === 'visible') {
-		map.setLayoutProperty(layer, 'visibility', 'none');
-		this.className = this.className.substr(0, this.className.indexOf(' active'));
-	} else {
-		this.className += ' active';
-		map.setLayoutProperty(layer, 'visibility', 'visible');
-	}
-}
-
-//-----------------------------------------------------------------------
 /*
 function changeMapStyle(event) {
 	'use strict';
@@ -306,7 +233,7 @@ function changeMapStyle(event) {
 }
 */
 //-----------------------------------------------------------------------
-
+/*
 function filterKeyUp(event) {
 	'use strict';
 
@@ -318,7 +245,7 @@ function filterKeyUp(event) {
 //		map.setLayoutProperty(layerID, 'visibility', layerID.indexOf(value) > -1 ? 'visible' : 'none');
 //	});
 }
-
+*/
 //-----------------------------------------------------------------------
 
 function getJSON(uri, callback) {
@@ -492,52 +419,6 @@ function buildNavigation() {
 }
 
 //-----------------------------------------------------------------------
-/*
-function buildMenu() {
-	'use strict';
-
-	var sources = getDataSources(),
-		i,
-		elem,
-		omnibox = document.getElementById('omnibox');
-
-	elem = document.createElement('input');
-	elem.type = 'text';
-	elem.name = 'filter';
-	elem.id = 'filter';
-	elem.placeholder = 'In Krefeld suchen';
-	omnibox.appendChild(elem);
-
-	for (i = 0; i < sources.length; ++i) {
-		if (typeof sources[i].layer !== 'undefined') {
-			elem = document.createElement('a');
-			elem.href = '#';
-//			elem.className = 'active';
-			elem.textContent = sources[i].title;
-			elem.layerName = sources[i].layer;
-			elem.onclick = menuClick;
-
-			if (typeof sources[i].icon !== 'undefined') {
-				elem.className = 'icon ' + sources[i].icon;
-			}
-
-			omnibox.appendChild(elem);
-		}
-	}
-
-//	elem = document.createElement('a');
-//	elem.href = '#';
-//	elem.textContent = 'Satellit anzeigen';
-//	elem.id = 'mapstyle';
-//	elem.onclick = changeMapStyle;
-//	omnibox.appendChild(elem);
-
-	elem = document.getElementById('filter');
-	elem.focus();
-	elem.addEventListener('keyup', filterKeyUp);
-}
-*/
-//-----------------------------------------------------------------------
 
 map.on('load', function () {
 	'use strict';
@@ -564,7 +445,6 @@ map.on('load', function () {
 	map.setPaintProperty('park', 'fill-color', '#a7ca96');
 
 	loadData();
-//	buildMenu();
 
 	// next step:
 	// https://www.mapbox.com/mapbox-gl-js/example/toggle-interaction-handlers/
