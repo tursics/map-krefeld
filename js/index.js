@@ -18,7 +18,9 @@ var mapboxgl = mapboxgl || {
 
 mapboxgl.accessToken = 'pk.eyJ1IjoidHVyc2ljcyIsImEiOiJjajBoN3hzZGwwMDJsMnF0YW96Y2l3OGk2In0._5BdojVYvNuR6x4fQNYZrA';
 var baseURI = 'https://tursics.github.io/map-krefeld',
-	appName = 'Krefeld-Karte';
+	appName = 'Krefeld-Karte',
+//	markerPath = 'node_modules/mapbox-gl-styles/sprites/bright-v9/_svg/';
+	markerPath = 'https://rawgit.com/tursics/map-krefeld/master/node_modules/mapbox-gl-styles/sprites/bright-v9/_svg/';
 
 //-----------------------------------------------------------------------
 
@@ -444,7 +446,7 @@ function buildNavigationAsync(data) {
 			data[d].menu[m].id = data[d].menu[m].id || '';
 			data[d].menu[m].icon = data[d].menu[m].icon || 'marker';
 
-			str += '<li><a href="#" class="submenu icon ' + data[d].menu[m].icon + '-15" data-id="' + data[d].menu[m].id + '"><i class="icon" style="background-image:url(node_modules/mapbox-gl-styles/sprites/bright-v9/_svg/' + data[d].menu[m].icon + '-15.svg);"></i>' + data[d].menu[m].title + '</a></li>';
+			str += '<li><a href="#" class="submenu icon ' + data[d].menu[m].icon + '-15" data-id="' + data[d].menu[m].id + '"><i class="icon" style="background-image:url(' + markerPath + data[d].menu[m].icon + '-15.svg);"></i>' + data[d].menu[m].title + '</a></li>';
 		}
 
 		str += '</ul>';
