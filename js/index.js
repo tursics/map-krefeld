@@ -19,7 +19,6 @@ var mapboxgl = mapboxgl || {
 mapboxgl.accessToken = 'pk.eyJ1IjoidHVyc2ljcyIsImEiOiJjajBoN3hzZGwwMDJsMnF0YW96Y2l3OGk2In0._5BdojVYvNuR6x4fQNYZrA';
 var baseURI = 'https://tursics.github.io/map-krefeld',
 	appName = 'Krefeld-Karte',
-//	markerPath = 'node_modules/mapbox-gl-styles/sprites/bright-v9/_svg/';
 	markerPath = 'https://rawgit.com/tursics/map-krefeld/master/node_modules/mapbox-gl-styles/sprites/bright-v9/_svg/';
 
 //-----------------------------------------------------------------------
@@ -370,14 +369,19 @@ function setCallbacksToMenu() {
 
 	function onClickSubMenu(obj) {
 		var layer = obj.dataset.id,
-			visibility = map.getLayoutProperty(layer, 'visibility');
+			visibility = map.getLayoutProperty(layer, 'visibility'),
+			backgroundColor = obj.style.backgroundColor.split(',');
 
 		if (visibility === 'visible') {
 			map.setLayoutProperty(layer, 'visibility', 'none');
 			obj.className = obj.className.substr(0, obj.className.indexOf(' active'));
+			backgroundColor[3] = ' 0)';
+			obj.style.backgroundColor = backgroundColor.join(',');
 		} else {
 			obj.className += ' active';
 			map.setLayoutProperty(layer, 'visibility', 'visible');
+			backgroundColor[3] = ' .99)';
+			obj.style.backgroundColor = backgroundColor.join(',');
 		}
 	}
 
@@ -386,12 +390,12 @@ function setCallbacksToMenu() {
 			i,
 			obj;
 
-		for (i = 0; i < menu.length; ++i) {
+/*		for (i = 0; i < menu.length; ++i) {
 			menu[i].parentNode.classList = ['dropdown'];
 		}
 
 		menu = document.getElementById('pagecover');
-		menu.classList = [''];
+		menu.classList = [''];*/
 
 		obj = e.target;
 		if (obj.className.indexOf('submenu') === -1) {
@@ -445,8 +449,9 @@ function buildNavigationAsync(data) {
 			data[d].menu[m].title = data[d].menu[m].title || '';
 			data[d].menu[m].id = data[d].menu[m].id || '';
 			data[d].menu[m].icon = data[d].menu[m].icon || 'marker';
+			data[d].menu[m].color = data[d].menu[m].color || '#000000';
 
-			str += '<li><a href="#" class="submenu icon ' + data[d].menu[m].icon + '-15" data-id="' + data[d].menu[m].id + '"><i class="icon" style="background-image:url(' + markerPath + data[d].menu[m].icon + '-15.svg);"></i>' + data[d].menu[m].title + '</a></li>';
+			str += '<li><a href="#" class="submenu icon ' + data[d].menu[m].icon + '-15" data-id="' + data[d].menu[m].id + '" style="background-color:' + data[d].menu[m].color + '00;"><i class="icon" style="background-image:url(' + markerPath + data[d].menu[m].icon + '-15.svg);"></i>' + data[d].menu[m].title + '</a></li>';
 		}
 
 		str += '</ul>';

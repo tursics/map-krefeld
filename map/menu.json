@@ -5,12 +5,14 @@
 			{
 				"title": "Grenzen",
 				"id": "VERWALT_EINH",
-				"icon": "circle"
+				"icon": "circle",
+				"color": "#3cc2ff"
 			},
 			{
 				"title": "Verwaltung",
 				"id": "administration",
-				"icon": "town-hall"
+				"icon": "town-hall",
+				"color": "#3cc2ff"
 			}
 		]
 	},
@@ -20,12 +22,14 @@
 			{
 				"title": "Hotels",
 				"id": "hotels",
-				"icon": "lodging"
+				"icon": "lodging",
+				"color": "#ff793c"
 			},
 			{
 				"title": "Restaurants",
 				"id": "restaurants",
-				"icon": "restaurant"
+				"icon": "restaurant",
+				"color": "#ff793c"
 			}
 		]
 	},
@@ -35,12 +39,14 @@
 			{
 				"title": "Kindergärten",
 				"id": "kindergartens",
-				"icon": "playground"
+				"icon": "playground",
+				"color": "#c2ff3c"
 			},
 			{
 				"title": "Schulen",
 				"id": "schools",
-				"icon": "college"
+				"icon": "college",
+				"color": "#c2ff3c"
 			}
 		]
 	}
