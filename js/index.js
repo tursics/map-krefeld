@@ -9,6 +9,9 @@ var mapboxgl = mapboxgl || {
 
 		return {
 			on: function () {
+			},
+			getLayer: function () {
+				return false;
 			}
 		};
 	}
@@ -296,19 +299,26 @@ function setCallbacksToMenu() {
 
 	function onClickSubMenu(obj) {
 		var layer = obj.dataset.id,
-			visibility = map.getLayoutProperty(layer, 'visibility'),
+			icon = obj.dataset.icon,
+			visibility = false,
 			backgroundColor = obj.style.backgroundColor.split(',');
 
-		if (visibility === 'visible') {
-			map.setLayoutProperty(layer, 'visibility', 'none');
-			obj.className = obj.className.substr(0, obj.className.indexOf(' active'));
-			backgroundColor[3] = ' 0)';
-			obj.style.backgroundColor = backgroundColor.join(',');
+		if (map.getLayer(layer)) {
+			visibility = map.getLayoutProperty(layer, 'visibility');
+
+			if (visibility === 'visible') {
+				map.setLayoutProperty(layer, 'visibility', 'none');
+				obj.className = obj.className.substr(0, obj.className.indexOf(' active'));
+				backgroundColor[3] = ' 0)';
+				obj.style.backgroundColor = backgroundColor.join(',');
+			} else {
+				obj.className += ' active';
+				map.setLayoutProperty(layer, 'visibility', 'visible');
+				backgroundColor[3] = ' .99)';
+				obj.style.backgroundColor = backgroundColor.join(',');
+			}
 		} else {
-			obj.className += ' active';
-			map.setLayoutProperty(layer, 'visibility', 'visible');
-			backgroundColor[3] = ' .99)';
-			obj.style.backgroundColor = backgroundColor.join(',');
+			loadGeoJSON(layer, baseURI + '/map/' + layer + '.json', '{title}', icon + '-15', ['!=', 'title', '']);
 		}
 	}
 
