@@ -109,7 +109,6 @@ function loadGeoJSON(title, url, titleTemplate, icon, filter) {
 				id: title,
 				type: 'symbol',
 				source: title,
-//				visibility: 'none',
 				filter: filter,
 				layout: {
 					'icon-image': icon,
@@ -148,7 +147,6 @@ function loadGeoJSONLine(title, url) {
 			id: title,
 			type: 'fill',
 			source: title,
-			visibility: 'none',
 			layout: {
 				'line-join': 'round',
 				'line-cap': 'round'
@@ -158,7 +156,6 @@ function loadGeoJSONLine(title, url) {
 				'line-width': 8
 			}
 		});
-		map.setLayoutProperty(title, 'visibility', 'none');
 	}
 }
 
@@ -179,14 +176,12 @@ function loadGeoJSONPolygon(title, url) {
 			id: title,
 			type: 'fill',
 			source: title,
-			visibility: 'none',
 			layout: {},
 			paint: {
 				'fill-color': '#f00',
 				'fill-opacity': 0.05
 			}
 		});
-		map.setLayoutProperty(title, 'visibility', 'none');
 	}
 }
 
@@ -287,7 +282,51 @@ function getJSON(uri, callback) {
 
 //-----------------------------------------------------------------------
 
-function setCallbacksToMenu() {
+function getMenuItemSnippet(data, level1, level2) {
+	'use strict';
+
+	return '<i class="icon" style="background-image:url(' + fontawesomePath + data[level1].menu[level2].icon + '.svg);"></i>' + data[level1].menu[level2].title;
+}
+
+//-----------------------------------------------------------------------
+
+function getMenuItemSnippetLoading(data, level1, level2) {
+	'use strict';
+
+	return '<i class="icon spinning1" style="background-image:url(' + fontawesomePath + 'circle-o-notch.svg);"></i>' + data[level1].menu[level2].title;
+}
+
+//-----------------------------------------------------------------------
+
+function getMenuItemSnippetLoaded(data, level1, level2) {
+	'use strict';
+
+	return '<i class="icon spinning2" style="background-image:url(' + fontawesomePath + 'circle-o-notch.svg);"></i>' + data[level1].menu[level2].title;
+}
+
+//-----------------------------------------------------------------------
+
+function getMenuLinkSnippet(data, level1, level2) {
+	'use strict';
+
+	data[level1].menu[level2].title = data[level1].menu[level2].title || '';
+	data[level1].menu[level2].id = data[level1].menu[level2].id || '';
+	data[level1].menu[level2].icon = data[level1].menu[level2].icon || 'marker';
+	data[level1].menu[level2].color = data[level1].menu[level2].color || '#000000';
+
+	return '<a href="#" class="submenu" ' +
+		'data-id="' + data[level1].menu[level2].id + '" ' +
+		'data-icon="' + data[level1].menu[level2].icon + '" ' +
+		'data-type="' + data[level1].menu[level2].type + '" ' +
+		'data-level1="' + level1 + '" ' +
+		'data-level2="' + level2 + '" ' +
+		'style="background-color:' + data[level1].menu[level2].color + '00;">' +
+		getMenuItemSnippet(data, level1, level2) + '</a>';
+}
+
+//-----------------------------------------------------------------------
+
+function setCallbacksToMenu(data) {
 	'use strict';
 
 	function onClickMenuCB(e) {
@@ -321,7 +360,7 @@ function setCallbacksToMenu() {
 		if (map.getLayer(layer)) {
 			visibility = map.getLayoutProperty(layer, 'visibility');
 
-			if (visibility === 'visible') {
+			if (visibility !== 'none') {
 				map.setLayoutProperty(layer, 'visibility', 'none');
 				obj.className = obj.className.substr(0, obj.className.indexOf(' active'));
 				backgroundColor[3] = ' 0)';
@@ -333,16 +372,17 @@ function setCallbacksToMenu() {
 				obj.style.backgroundColor = backgroundColor.join(',');
 			}
 		} else {
+			obj.innerHTML = getMenuItemSnippetLoading(data, obj.dataset.level1, obj.dataset.level2);
+			obj.className += ' active';
+//			map.setLayoutProperty(layer, 'visibility', 'visible');
+			backgroundColor[3] = ' .99)';
+			obj.style.backgroundColor = backgroundColor.join(',');
+
 			if ('polygon' === obj.dataset.type) {
 				loadGeoJSONPolygon(layer, baseURI + '/map/' + layer + '.json', '{title}', icon, ['!=', 'title', '']);
 			} else {
 				loadGeoJSON(layer, baseURI + '/map/' + layer + '.json', '{title}', icon, ['!=', 'title', '']);
 			}
-
-			obj.className += ' active';
-			map.setLayoutProperty(layer, 'visibility', 'visible');
-			backgroundColor[3] = ' .99)';
-			obj.style.backgroundColor = backgroundColor.join(',');
 		}
 	}
 
@@ -366,6 +406,23 @@ function setCallbacksToMenu() {
 		onClickSubMenu(obj);
 	}
 
+	function loadingData(e) {
+		if (e.isSourceLoaded && ('sourcedata' === e.type)) {
+			var elems = document.querySelectorAll('[data-id="' + e.sourceId + '"]'),
+				backgroundColor,
+				obj;
+
+			if (elems.length > 0) {
+				obj = elems[0];
+				if ('undefined' === typeof e.coord) {
+					obj.innerHTML = getMenuItemSnippetLoaded(data, obj.dataset.level1, obj.dataset.level2);
+				} else {
+					obj.innerHTML = getMenuItemSnippet(data, obj.dataset.level1, obj.dataset.level2);
+				}
+			}
+		}
+	}
+
 	var div = document.getElementsByClassName('dropdown-toggle'),
 		i;
 
@@ -384,6 +441,8 @@ function setCallbacksToMenu() {
 
 	div = document.getElementById('pagecover');
 	div.onmousedown = onClickMenuCB;
+
+	map.on('sourcedata', loadingData);
 }
 
 //-----------------------------------------------------------------------
@@ -412,7 +471,7 @@ function buildNavigationAsync(data) {
 			data[d].menu[m].icon = data[d].menu[m].icon || 'marker';
 			data[d].menu[m].color = data[d].menu[m].color || '#000000';
 
-			str += '<li><a href="#" class="submenu" data-id="' + data[d].menu[m].id + '" data-icon="' + data[d].menu[m].icon + '" data-type="' + data[d].menu[m].type + '" style="background-color:' + data[d].menu[m].color + '00;"><i class="icon" style="background-image:url(' + fontawesomePath + data[d].menu[m].icon + '.svg);"></i>' + data[d].menu[m].title + '</a></li>';
+			str += '<li>' + getMenuLinkSnippet(data, d, m) + '</li>';
 		}
 
 		str += '</ul>';
@@ -423,7 +482,7 @@ function buildNavigationAsync(data) {
 
 	navbar[0].innerHTML = str;
 
-	setCallbacksToMenu();
+	setCallbacksToMenu(data);
 }
 
 //-----------------------------------------------------------------------
