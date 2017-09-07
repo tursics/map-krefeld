@@ -214,28 +214,21 @@ body {
 .navbar-nav a i.icon {
 	background-position: center center;
 	background-repeat: no-repeat;
-	background-size: 2em;
-	border: 1px solid transparent;
-	border-radius: 50%;
+	background-size: 1.5em;
 	content: '';
 	display: inline-block;
-	height: 2em;
-	line-height: 2em;
-	margin: 0 .25em 0 0;
+	height: 1.5em;
+	line-height: 1.5em;
+	margin: -.25em .25em 0 0;
 	opacity: .5;
 	text-align: center;
 	vertical-align: middle;
-	width: 2em;
+	width: 1.5em;
 	transition-property: background-color,border-color;
 	transition-duration: .5s;
 }
 #omnibox a.active.icon:before, .navbar-nav a.active i.icon {
 	opacity: 1;
-}
-#omnibox a:hover.icon:before, .navbar-nav a:hover i.icon:before {
-	border-color: #888;
-}
-#omnibox a.icon.border:before, .navbar-nav a i.icon.border:before {
 }
 #omnibox a.active.icon.border:before, .navbar-nav a.active i.icon.border {
 	background-color: #FFE5E5;

@@ -4,14 +4,23 @@
 		"menu": [
 			{
 				"title": "Grenzen",
-				"id": "VERWALT_EINH",
+				"id": "ALKIS_ADV_SHAPE_Krefeld_VERWALT_EINH",
+				"type": "polygon",
 				"icon": "circle",
+				"color": "#3cc2ff"
+			},
+			{
+				"title": "Polizei",
+				"id": "policestations",
+				"type": "point",
+				"icon": "shield",
 				"color": "#3cc2ff"
 			},
 			{
 				"title": "Verwaltung",
 				"id": "administration",
-				"icon": "town-hall",
+				"type": "point",
+				"icon": "university",
 				"color": "#3cc2ff"
 			}
 		]
@@ -22,13 +31,15 @@
 			{
 				"title": "Hotels",
 				"id": "hotels",
-				"icon": "lodging",
+				"type": "point",
+				"icon": "bed",
 				"color": "#ff793c"
 			},
 			{
 				"title": "Restaurants",
 				"id": "restaurants",
-				"icon": "restaurant",
+				"type": "point",
+				"icon": "cutlery",
 				"color": "#ff793c"
 			}
 		]
@@ -39,13 +50,15 @@
 			{
 				"title": "Kindergärten",
 				"id": "kindergartens",
-				"icon": "playground",
+				"type": "point",
+				"icon": "child",
 				"color": "#c2ff3c"
 			},
 			{
 				"title": "Schulen",
 				"id": "schools",
-				"icon": "college",
+				"type": "point",
+				"icon": "graduation-cap",
 				"color": "#c2ff3c"
 			}
 		]

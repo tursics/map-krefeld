@@ -12,6 +12,16 @@ var mapboxgl = mapboxgl || {
 			},
 			getLayer: function () {
 				return false;
+			},
+			getSource: function () {
+				return false;
+			},
+			addLayer: function () {},
+			addImage: function () {},
+			addSource: function () {},
+			setLayoutProperty: function () {},
+			loadImage: function (foo, callback) {
+				callback('mapbox gl not loaded');
 			}
 		};
 	}
@@ -22,7 +32,7 @@ var mapboxgl = mapboxgl || {
 mapboxgl.accessToken = 'pk.eyJ1IjoidHVyc2ljcyIsImEiOiJjajBoN3hzZGwwMDJsMnF0YW96Y2l3OGk2In0._5BdojVYvNuR6x4fQNYZrA';
 var baseURI = 'https://tursics.github.io/map-krefeld',
 	appName = 'Krefeld-Karte',
-	markerPath = 'https://rawgit.com/tursics/map-krefeld/master/node_modules/mapbox-gl-styles/sprites/bright-v9/_svg/';
+	fontawesomePath = './assets/fontawesome/';
 
 //-----------------------------------------------------------------------
 
@@ -37,7 +47,7 @@ var map = new mapboxgl.Map({
 	hash: true,
 	maxBounds: [[6.4, 51.22], [6.8, 51.46]]
 });
-var layerIDs = [];
+//var layerIDs = [];
 
 //-----------------------------------------------------------------------
 /*
@@ -90,29 +100,34 @@ function loadGeoJSON(title, url, titleTemplate, icon, filter) {
 	}
 
 	if (!map.getLayer(title)) {
-		map.addLayer({
-			id: title,
-			type: 'symbol',
-			source: title,
-			visibility: 'none',
-			filter: filter,
-			layout: {
-				'icon-image': icon,
-				'icon-size': 2,
-				'text-field': titleTemplate,
-				'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
-				'text-offset': [0, 0.6],
-				'text-anchor': 'top'
-			},
-			paint: {
-				'text-color': '#444',
-				'text-halo-color': '#fff',
-				'text-halo-width': 1
-			}
-		});
-		map.setLayoutProperty(title, 'visibility', 'none');
+//		map.loadImage(fontawesomePath + icon + '.svg', function (error, image) {
+//			if(error) console.log(error);
+//			console.log(image);
+//
+//			map.addImage(icon, image);
+			map.addLayer({
+				id: title,
+				type: 'symbol',
+				source: title,
+//				visibility: 'none',
+				filter: filter,
+				layout: {
+					'icon-image': icon,
+					'icon-size': 2,
+					'text-field': titleTemplate,
+					'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
+					'text-offset': [0, 0.6],
+					'text-anchor': 'top'
+				},
+				paint: {
+					'text-color': '#444',
+					'text-halo-color': '#fff',
+					'text-halo-width': 1
+				}
+			});
+//		});
 
-		layerIDs.push(title);
+//		layerIDs.push(title);
 	}
 }
 
@@ -176,7 +191,7 @@ function loadGeoJSONPolygon(title, url) {
 }
 
 //-----------------------------------------------------------------------
-
+/*
 function loadData() {
 	'use strict';
 
@@ -188,7 +203,8 @@ function loadData() {
 	loadGeoJSONPolygon('VERWALT_EINH', baseURI + '/map/ALKIS_ADV_SHAPE_Krefeld_VERWALT_EINH.json');
 
 	loadGeoJSON('administration', baseURI + '/map/administration.json', '{title}', 'town-hall-15', ['!=', 'title', '']);
-/*	loadGeoJSON('schools', baseURI + '/map/administrationothers.json', '{title}', 'school-15', []);
+
+	loadGeoJSON('schools', baseURI + '/map/administrationothers.json', '{title}', 'school-15', []);
 	loadGeoJSON('schools', baseURI + '/map/celltowers.json', '{title}', 'school-15', []);
 	loadGeoJSON('schools', baseURI + '/map/cemetery.json', '{title}', 'school-15', []);
 	loadGeoJSON('schools', baseURI + '/map/chapels.json', '{title}', 'school-15', []);
@@ -220,9 +236,8 @@ function loadData() {
 	loadGeoJSON('schools', baseURI + '/map/theaters.json', '{title}', 'school-15', []);
 	loadGeoJSON('schools', baseURI + '/map/universities.json', '{title}', 'school-15', []);
 	loadGeoJSON('schools', baseURI + '/map/youthcenter.json', '{title}', 'school-15', []);
-	*/
 }
-
+*/
 //-----------------------------------------------------------------------
 /*
 function changeMapStyle(event) {
@@ -318,7 +333,16 @@ function setCallbacksToMenu() {
 				obj.style.backgroundColor = backgroundColor.join(',');
 			}
 		} else {
-			loadGeoJSON(layer, baseURI + '/map/' + layer + '.json', '{title}', icon + '-15', ['!=', 'title', '']);
+			if ('polygon' === obj.dataset.type) {
+				loadGeoJSONPolygon(layer, baseURI + '/map/' + layer + '.json', '{title}', icon, ['!=', 'title', '']);
+			} else {
+				loadGeoJSON(layer, baseURI + '/map/' + layer + '.json', '{title}', icon, ['!=', 'title', '']);
+			}
+
+			obj.className += ' active';
+			map.setLayoutProperty(layer, 'visibility', 'visible');
+			backgroundColor[3] = ' .99)';
+			obj.style.backgroundColor = backgroundColor.join(',');
 		}
 	}
 
@@ -388,7 +412,7 @@ function buildNavigationAsync(data) {
 			data[d].menu[m].icon = data[d].menu[m].icon || 'marker';
 			data[d].menu[m].color = data[d].menu[m].color || '#000000';
 
-			str += '<li><a href="#" class="submenu icon ' + data[d].menu[m].icon + '-15" data-id="' + data[d].menu[m].id + '" style="background-color:' + data[d].menu[m].color + '00;"><i class="icon" style="background-image:url(' + markerPath + data[d].menu[m].icon + '-15.svg);"></i>' + data[d].menu[m].title + '</a></li>';
+			str += '<li><a href="#" class="submenu" data-id="' + data[d].menu[m].id + '" data-icon="' + data[d].menu[m].icon + '" data-type="' + data[d].menu[m].type + '" style="background-color:' + data[d].menu[m].color + '00;"><i class="icon" style="background-image:url(' + fontawesomePath + data[d].menu[m].icon + '.svg);"></i>' + data[d].menu[m].title + '</a></li>';
 		}
 
 		str += '</ul>';
@@ -454,7 +478,7 @@ map.on('load', function () {
 	map.setPaintProperty('building', 'fill-color', '#f4eaed');
 	map.setPaintProperty('park', 'fill-color', '#a7ca96');
 
-	loadData();
+//	loadData();
 
 	// next step:
 	// https://www.mapbox.com/mapbox-gl-js/example/toggle-interaction-handlers/
