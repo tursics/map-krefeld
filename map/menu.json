@@ -17,6 +17,13 @@
 				"color": "#3cc2ff"
 			},
 			{
+				"title": "Feuerwehr",
+				"id": "firestations",
+				"type": "point",
+				"icon": "fire-extinguisher",
+				"color": "#3cc2ff"
+			},
+			{
 				"title": "Verwaltung",
 				"id": "administration",
 				"type": "point",
@@ -48,6 +55,13 @@
 		"title": "Kinder",
 		"menu": [
 			{
+				"title": "Spielplätze",
+				"id": "playgrounds",
+				"type": "point",
+				"icon": "soccer-ball-o",
+				"color": "#c2ff3c"
+			},
+			{
 				"title": "Kindergärten",
 				"id": "kindergartens",
 				"type": "point",
@@ -58,7 +72,21 @@
 				"title": "Schulen",
 				"id": "schools",
 				"type": "point",
+				"icon": "pencil",
+				"color": "#c2ff3c"
+			},
+			{
+				"title": "Universitäten",
+				"id": "universities",
+				"type": "point",
 				"icon": "graduation-cap",
+				"color": "#c2ff3c"
+			},
+			{
+				"title": "Bibliotheken",
+				"id": "libraries",
+				"type": "point",
+				"icon": "book",
 				"color": "#c2ff3c"
 			}
 		]
