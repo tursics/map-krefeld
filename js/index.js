@@ -100,11 +100,8 @@ function loadGeoJSON(title, url, titleTemplate, icon, filter) {
 	}
 
 	if (!map.getLayer(title)) {
-//		map.loadImage(fontawesomePath + icon + '.svg', function (error, image) {
-//			if(error) console.log(error);
-//			console.log(image);
-//
-//			map.addImage(icon, image);
+		map.loadImage(fontawesomePath + icon + '.png', function (error, image) {
+			map.addImage(icon, image);
 			map.addLayer({
 				id: title,
 				type: 'symbol',
@@ -124,7 +121,7 @@ function loadGeoJSON(title, url, titleTemplate, icon, filter) {
 					'text-halo-width': 1
 				}
 			});
-//		});
+		});
 
 //		layerIDs.push(title);
 	}
@@ -218,8 +215,6 @@ function loadData() {
 	loadGeoJSON('schools', baseURI + '/map/schools.json', '{title}', 'school-15', []);
 	loadGeoJSON('schools', baseURI + '/map/schoolsothers.json', '{title}', 'school-15', []);
 	loadGeoJSON('schools', baseURI + '/map/seniors.json', '{title}', 'school-15', []);
-	loadGeoJSON('schools', baseURI + '/map/sportsfields.json', '{title}', 'school-15', []);
-	loadGeoJSON('schools', baseURI + '/map/swimmingbaths.json', '{title}', 'school-15', []);
 	loadGeoJSON('schools', baseURI + '/map/theaters.json', '{title}', 'school-15', []);
 	loadGeoJSON('schools', baseURI + '/map/youthcenter.json', '{title}', 'school-15', []);
 }

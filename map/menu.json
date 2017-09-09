@@ -3,10 +3,10 @@
 		"title": "Die Stadt",
 		"menu": [
 			{
-				"title": "Grenzen",
+				"title": "Stadtgrenze",
 				"id": "ALKIS_ADV_SHAPE_Krefeld_VERWALT_EINH",
 				"type": "polygon",
-				"icon": "circle",
+				"icon": "circle-o",
 				"color": "#3cc2ff"
 			},
 			{
@@ -88,6 +88,25 @@
 				"type": "point",
 				"icon": "book",
 				"color": "#c2ff3c"
+			}
+		]
+	},
+	{
+		"title": "Freizeit",
+		"menu": [
+			{
+				"title": "Schwimmbäder",
+				"id": "swimmingbaths",
+				"type": "point",
+				"icon": "support",
+				"color": "#ff3cc2"
+			},
+			{
+				"title": "Sportplätze",
+				"id": "sportsfields",
+				"type": "point",
+				"icon": "soccer-ball-o",
+				"color": "#ff3cc2"
 			}
 		]
 	}
