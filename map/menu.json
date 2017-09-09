@@ -58,7 +58,7 @@
 				"title": "Spielplätze",
 				"id": "playgrounds",
 				"type": "point",
-				"icon": "soccer-ball-o",
+				"icon": "paper-plane",
 				"color": "#c2ff3c"
 			},
 			{
