@@ -192,24 +192,11 @@ function loadData() {
 	loadGeoJSON('hotels', baseURI + '/map/hotels.json', '{title}', 'lodging-15', ['==', 'hotel', true]);
 	loadGeoJSONPolygon('VERWALT_EINH', baseURI + '/map/ALKIS_ADV_SHAPE_Krefeld_VERWALT_EINH.json');
 
-	loadGeoJSON('schools', baseURI + '/map/administrationothers.json', '{title}', 'school-15', []);
-	loadGeoJSON('schools', baseURI + '/map/celltowers.json', '{title}', 'school-15', []);
-	loadGeoJSON('schools', baseURI + '/map/cemetery.json', '{title}', 'school-15', []);
-	loadGeoJSON('schools', baseURI + '/map/chapels.json', '{title}', 'school-15', []);
-	loadGeoJSON('schools', baseURI + '/map/churcheothers.json', '{title}', 'school-15', []);
-	loadGeoJSON('schools', baseURI + '/map/churches.json', '{title}', 'school-15', []);
-	loadGeoJSON('schools', baseURI + '/map/culture.json', '{title}', 'school-15', []);
-	loadGeoJSON('schools', baseURI + '/map/cultureothers.json', '{title}', 'school-15', []);
 	loadGeoJSON('schools', baseURI + '/map/disabledfleets.json', '{title}', 'school-15', []);
 	loadGeoJSON('schools', baseURI + '/map/disabledothers.json', '{title}', 'school-15', []);
 	loadGeoJSON('schools', baseURI + '/map/dogwastebags.json', '{title}', 'school-15', []);
 	loadGeoJSON('schools', baseURI + '/map/gymnasiums.json', '{title}', 'school-15', []);
-	loadGeoJSON('schools', baseURI + '/map/hospitals.json', '{title}', 'school-15', []);
-	loadGeoJSON('schools', baseURI + '/map/hotels.json', '{title}', 'school-15', []);
-	loadGeoJSON('schools', baseURI + '/map/icerinks.json', '{title}', 'school-15', []);
 	loadGeoJSON('schools', baseURI + '/map/parking.json', '{title}', 'school-15', []);
-	loadGeoJSON('schools', baseURI + '/map/parks.json', '{title}', 'school-15', []);
-	loadGeoJSON('schools', baseURI + '/map/pois.json', '{title}', 'school-15', []);
 	loadGeoJSON('schools', baseURI + '/map/schools.json', '{title}', 'school-15', []);
 	loadGeoJSON('schools', baseURI + '/map/schoolsothers.json', '{title}', 'school-15', []);
 	loadGeoJSON('schools', baseURI + '/map/seniors.json', '{title}', 'school-15', []);

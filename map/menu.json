@@ -17,6 +17,13 @@
 				"color": "#3cc2ff"
 			},
 			{
+				"title": "Krankenhäuser",
+				"id": "hospitals",
+				"type": "point",
+				"icon": "university",
+				"color": "#3cc2ff"
+			},
+			{
 				"title": "Feuerwehr",
 				"id": "firestations",
 				"type": "point",
@@ -26,6 +33,49 @@
 			{
 				"title": "Verwaltung",
 				"id": "administration",
+				"type": "point",
+				"icon": "university",
+				"color": "#3cc2ff"
+			},
+			{
+				"title": "Weitere Verwaltung",
+				"id": "administrationothers",
+				"type": "point",
+				"icon": "university",
+				"color": "#3cc2ff"
+			},
+			{
+				"title": "Friedhöfe",
+				"id": "cemetery",
+				"type": "point",
+				"icon": "university",
+				"color": "#3cc2ff",
+				"error": true
+			},
+			{
+				"title": "Mobilfunksendemasten",
+				"id": "celltowers",
+				"type": "point",
+				"icon": "university",
+				"color": "#3cc2ff"
+			},
+			{
+				"title": "Kirchen",
+				"id": "churches",
+				"type": "point",
+				"icon": "university",
+				"color": "#3cc2ff"
+			},
+			{
+				"title": "Kapellen",
+				"id": "chapels",
+				"type": "point",
+				"icon": "university",
+				"color": "#3cc2ff"
+			},
+			{
+				"title": "Weitere Kirchen",
+				"id": "churcheothers",
 				"type": "point",
 				"icon": "university",
 				"color": "#3cc2ff"
@@ -47,7 +97,16 @@
 				"id": "restaurants",
 				"type": "point",
 				"icon": "cutlery",
-				"color": "#ff793c"
+				"color": "#ff793c",
+				"error": true
+			},
+			{
+				"title": "Sehenswürdigkeiten",
+				"id": "pois",
+				"type": "point",
+				"icon": "cutlery",
+				"color": "#ff793c",
+				"error": true
 			}
 		]
 	},
@@ -109,8 +168,22 @@
 				"color": "#ff3cc2"
 			},
 			{
+				"title": "Parks",
+				"id": "parks",
+				"type": "point",
+				"icon": "soccer-ball-o",
+				"color": "#ff3cc2"
+			},
+			{
 				"title": "Sportplätze",
 				"id": "sportsfields",
+				"type": "point",
+				"icon": "soccer-ball-o",
+				"color": "#ff3cc2"
+			},
+			{
+				"title": "Eisbahnen",
+				"id": "icerinks",
 				"type": "point",
 				"icon": "soccer-ball-o",
 				"color": "#ff3cc2"
@@ -125,6 +198,20 @@
 			{
 				"title": "Theater",
 				"id": "theaters",
+				"type": "point",
+				"icon": "soccer-ball-o",
+				"color": "#ff3cc2"
+			},
+			{
+				"title": "Kultur",
+				"id": "culture",
+				"type": "point",
+				"icon": "soccer-ball-o",
+				"color": "#ff3cc2"
+			},
+			{
+				"title": "Weitere Kultur",
+				"id": "cultureothers",
 				"type": "point",
 				"icon": "soccer-ball-o",
 				"color": "#ff3cc2"
