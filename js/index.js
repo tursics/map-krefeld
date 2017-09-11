@@ -207,16 +207,12 @@ function loadData() {
 	loadGeoJSON('schools', baseURI + '/map/hospitals.json', '{title}', 'school-15', []);
 	loadGeoJSON('schools', baseURI + '/map/hotels.json', '{title}', 'school-15', []);
 	loadGeoJSON('schools', baseURI + '/map/icerinks.json', '{title}', 'school-15', []);
-	loadGeoJSON('schools', baseURI + '/map/kindergartens.json', '{title}', 'school-15', []);
-	loadGeoJSON('schools', baseURI + '/map/museums.json', '{title}', 'school-15', []);
 	loadGeoJSON('schools', baseURI + '/map/parking.json', '{title}', 'school-15', []);
 	loadGeoJSON('schools', baseURI + '/map/parks.json', '{title}', 'school-15', []);
 	loadGeoJSON('schools', baseURI + '/map/pois.json', '{title}', 'school-15', []);
 	loadGeoJSON('schools', baseURI + '/map/schools.json', '{title}', 'school-15', []);
 	loadGeoJSON('schools', baseURI + '/map/schoolsothers.json', '{title}', 'school-15', []);
 	loadGeoJSON('schools', baseURI + '/map/seniors.json', '{title}', 'school-15', []);
-	loadGeoJSON('schools', baseURI + '/map/theaters.json', '{title}', 'school-15', []);
-	loadGeoJSON('schools', baseURI + '/map/youthcenter.json', '{title}', 'school-15', []);
 }
 */
 //-----------------------------------------------------------------------

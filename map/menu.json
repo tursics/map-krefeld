@@ -88,6 +88,13 @@
 				"type": "point",
 				"icon": "book",
 				"color": "#c2ff3c"
+			},
+			{
+				"title": "Jugendzentren",
+				"id": "youthcenter",
+				"type": "point",
+				"icon": "book",
+				"color": "#c2ff3c"
 			}
 		]
 	},
@@ -104,6 +111,20 @@
 			{
 				"title": "Sportplätze",
 				"id": "sportsfields",
+				"type": "point",
+				"icon": "soccer-ball-o",
+				"color": "#ff3cc2"
+			},
+			{
+				"title": "Museen",
+				"id": "museums",
+				"type": "point",
+				"icon": "soccer-ball-o",
+				"color": "#ff3cc2"
+			},
+			{
+				"title": "Theater",
+				"id": "theaters",
 				"type": "point",
 				"icon": "soccer-ball-o",
 				"color": "#ff3cc2"
